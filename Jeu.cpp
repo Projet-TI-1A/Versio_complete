@@ -61,7 +61,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 					cout << tab_point.gettaille() << endl;
 					tab_point.append(p1);
 					cout << tab_point.gettaille() << endl;
-					//remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel);
+					//remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); //Cause core dumped
 					cout << tab_point.gettaille() << endl;
 					}
 				else
@@ -71,7 +71,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 					}
 				
 				
-				switch (aire_completee(aire, airetotale[k], condition80, condition95) )
+				switch (aire_completee(aire, airetotale[k], condition80, condition95) )//Cause core dumped
 				//en fonction de l'aire on fait telle action mais on teste pas les autres
 				{
 					case 2: //95%
