@@ -31,16 +31,21 @@ int main()
 	
 	cout << "okay" << endl;
 	
-	while (window.isOpen())
+	while (window.isOpen()) //Boucle principale du programme
 	{
 		window.clear();
-		switch(gamemode)
+		switch(gamemode) //En fonction de gamemode, indique la phase du programme
 		{
 			case 0:
+			//Menu	
 			break;
 			
 			case 1:
 			simulation(window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode);
+			break;
+			
+			case 2:
+			//Phase de fin/résutats
 			break;
 			
 		}
