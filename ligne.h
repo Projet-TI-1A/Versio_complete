@@ -12,7 +12,6 @@ class ligne : public point
 	public :
 	void Position_ligne(RenderWindow&);
 	ligne(int x, int y);
-	ligne();
 };
 
 #endif

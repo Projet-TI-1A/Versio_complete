@@ -28,12 +28,12 @@ int calculaire(int k,int e,int largeur,int a,int b,int r, int R)
 	while (i>=inf && i<sup)
 	{ 	j=0;
 		l=largeur;
-		while(!zone(k,i,j,a,b,r,e))
+		while(!zone(k,i,j,a,b,r,R,e))
 		{	
 			j+=1;
 			aire=aire-1; 
 		}  
-		while (!zone(k,i,l,a,b,r,e))
+		while (!zone(k,i,l,a,b,r,R,e))
 		{
 			l-=1;
 			aire=aire-1; 

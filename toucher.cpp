@@ -7,8 +7,7 @@
 using namespace std;
 using namespace sf;
 
-void Position_Curseur(int *x, int *y, RenderWindow& window)
-//Récupère la postion de la souris relative à la fenêtre
+void Position_Curseur(int *x, int *y, RenderWindow& window)/*Récupère la postion de la souris relative à la fenêtre*/
 {
 	Vector2i localPosition = Mouse::getPosition(window);
 	*x = localPosition.x;
@@ -51,15 +50,6 @@ point::point(int x, int y)
 	this->y=y;
 }
 
-void point::Dessine_point(RenderWindow& window, int cote,int Red, int Green, int Blue)
-//Dessine un point de taille Rpx à la position (x,y)
-{
-	RectangleShape carre(Vector2f(cote, cote));
-	carre.setFillColor(Color(Red, Green, Blue));
-	carre.setPosition(x-int(cote/2),y-int(cote/2));
-	window.draw(carre);
-
-}
 /*******************************************************************************/
 
 tabpoint::tabpoint(){taille=0;}
@@ -83,22 +73,14 @@ int tabpoint::gettaille()
 }
 
 
+/*****************************************************************************/
+
 void tabpoint::reset()
 {
 	this->tab.clear();
 	this->taille=0;
 }
 
-void tabpoint::Dessine_plus_points(RenderWindow& window,int cote, int Red, int Green, int Blue)
-{
-	point p1;
-	int i;
-	
-	for (i=0; i<this->taille; i++)
-	{
-		tab[i].Dessine_point(window, cote, Red, Green, Blue);
-	}
-}
 /********************************************************************************/
 
 void restart(tabpoint& t1, tabpoint& t2, int& k, int& chrono)
