@@ -54,13 +54,13 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 			{	
 				Position_Curseur(&x, &y, window);
 				p1.set(x,y); 
-				if (zone(k, x, y, xcentre, ycentre, r, R, e))
+				if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
 					{
 					tab_point.append(p1);
 					//points++;
 					remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); 
 					}
-				else
+				if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)
 					{
 					tab_erreur.append(p1);
 					//erreurs++;
@@ -106,7 +106,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 			for (int i=0;i<e;i++){
 				for (int y=0;y<l;y++)
 				{
-					if (tab_pixel[i][y]==0  &&  zone(k, i+(xcentre+r-e*(k+1)), y, xcentre, ycentre, r, R, e))
+					if (tab_pixel[i][y]==0  &&  zone(k, i+(xcentre+r-e*(k+1)), y, xcentre, ycentre, r, R, e)==1)
 					{
 						Dessine_restant(k,i,y, e, r, R, xcentre, window);
 					}

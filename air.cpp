@@ -21,19 +21,19 @@ using namespace sf;
 int calculaire(int k,int e,int largeur,int a,int b,int r, int R)
 {
 	int i,j,l,aire,sup,inf,diametre, compteur1=0, compteur2=0;
-	aire=e*largeur;
-	sup=a+r-k*e; //borne sup de la zone
-	inf=a+r-(k+1)*e; //born inf de la zone
+	aire=(e-R/2-R/2)*largeur;
+	sup=a+r-k*e-R/2; //borne sup de la zone
+	inf=a+r-(k+1)*e+R/2; //born inf de la zone
 	i=inf;
 	while (i>=inf && i<sup)
 	{ 	j=0;
 		l=largeur;
-		while(!zone(k,i,j,a,b,r,R,e))
+		while(zone(k,i,j,a,b,r,R,e)!=1)
 		{	
 			j+=1;
 			aire=aire-1; 
 		}  
-		while (!zone(k,i,l,a,b,r,R,e))
+		while (zone(k,i,l,a,b,r,R,e)!=1)
 		{
 			l-=1;
 			aire=aire-1; 

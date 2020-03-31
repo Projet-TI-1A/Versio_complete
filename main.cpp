@@ -18,7 +18,7 @@ using namespace sf;
 int main()
 {
 	//on crée toutes les varibles necéssaires aux fonction
-	int gamemode=0;
+	int gamemode=1;
 	int x, y,E,k, Dessin;
 	tabpoint tab_point;
 	tabpoint tab_erreur;
