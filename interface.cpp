@@ -88,7 +88,7 @@ void Dessine_restant(int k,int i, int y, int e, int r,int R, int xcentre, Render
 	int x=(xcentre+r-e*(k+1))+i;
 	RectangleShape carre(Vector2f(3, 3));
 	carre.setFillColor(Color(0,255,0));
-	carre.setPosition(x-int(R/2),y-int(R/2));
+	carre.setPosition(x,y);
 	window.draw(carre);
 			
 }

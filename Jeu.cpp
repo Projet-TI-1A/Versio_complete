@@ -15,7 +15,7 @@ using namespace sf;
 //Contient la partie de l'ancien main qui était dans la boucle principale
 void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, int& gamemode)
 {
-		int temps_debut =clock();
+		int temps_debut =clock(),H;
 		Event event;
 		while (window.pollEvent(event))
 		{
@@ -101,27 +101,29 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		Position_ligne(ligneX, ligneY,window);
 		Position_ligne(ligneX+e, ligneY,window);
 		
-		Dessine_plus_points(tab_point, tab_erreur, window, R);
-		if (aire_completee(aire, airetotale[k], condition80, condition95)==1 ){
+		
+		
+		if (aire_completee(aire, airetotale[k], condition80, condition95)==1 )
+		{
 			for (int i=0;i<e;i++){
 				for (int y=0;y<l;y++)
 				{
-					if (tab_pixel[i][y]==0  &&  zone(k, i+(xcentre+r-e*(k+1)), y, xcentre, ycentre, r, R, e)==1)
+					
+					
+					if (tab_pixel[i][y]==0)
 					{
-						Dessine_restant(k,i,y, e, r, R, xcentre, window);
+						 H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
+						if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
+						{
+								Dessine_restant(k,i,y, e, r, R, xcentre, window);
+						}
+						
 					}
 				}
 			}
 		}
-		
-		/*if (aire_completee(aire, airetotale[k], condition80, condition95)==1 ){
-			for (int i=0;i<e;i++){
-				for (int y=0;y<l;y++){
-					if (tab_pixel[i][y]==0  &&  zone(k, i+(xcentre+r-e*(k+1)), y, xcentre, ycentre, r, R, e))
-						{Dessine_restant(k,i,y, e, r, R, xcentre, window);}
-					}
-				}
-			}*/
+		Dessine_plus_points(tab_point, tab_erreur, window, R);
+	
 		window.display();
 		/*test_fin(aire_completee(aire,airetotale[nbzone],condition95,condition80),temps_debut);*/
 }

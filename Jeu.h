@@ -2,6 +2,7 @@
 #include <iostream>
 #include "parametre.h"
 #include "toucher.h"
+#include "zone.h"
 #include <vector>
 #include "ligne.h"
 
