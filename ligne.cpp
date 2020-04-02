@@ -17,7 +17,7 @@ void ligne::Position_ligne(RenderWindow& window)
 	window.draw(line);
 }
 
-/*ligne::ligne(int x, int y)
+ligne::ligne(int x, int y)
 {
 	set(x,y);
-}*/
+}
