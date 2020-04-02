@@ -11,6 +11,7 @@
 #include <math.h>
 #include "Menu.h"
 #include "resultat.h"
+#include "Fin.h"
 
 using namespace std;
 using namespace sf;
@@ -63,6 +64,9 @@ int main()
 			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, chrono);
 			break;
 			
+			case 2:
+			affichage_fin(window, gamemode, erreurs, points);
+			break;
 		}
 		
 		window.display();
