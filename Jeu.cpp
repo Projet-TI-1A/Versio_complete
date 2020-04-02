@@ -111,14 +111,14 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 {delete [] tab_pixel[i];
 delete [] tab_pixel;}*/
 		
-		window.clear();
+		
 		Grand_cercle(window);
 		ZoneFinie(window, k, e, xcentre, ycentre, r);
 		Position_ligne(ligneX, ligneY,window);
 		Position_ligne(ligneX+e, ligneY,window);
 		Dessine_plus_points(tab_point, tab_erreur, window, R);
 	
-		window.display();
+		
 		/*test_fin(aire_completee(aire,airetotale[nbzone],condition95,condition80),temps_debut);*/
 }
 
