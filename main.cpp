@@ -33,7 +33,7 @@ int main()
 	ligne l1(0,0), l2(0,0);
 	Text text, text2;
 	String Nom;
-	
+	int chrono = 0;
 	//on crée la fenetre
 	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
 	
@@ -60,7 +60,7 @@ int main()
 			break;
 			
 			case 1:
-			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode);
+			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, chrono);
 			break;
 			
 		}
