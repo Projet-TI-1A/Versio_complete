@@ -14,7 +14,7 @@ using namespace std;
 using namespace sf;
 
 //Contient la partie de l'ancien main qui était dans la boucle principale
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, int& chrono)
 {
 		int temps_debut =clock(),H;
 		Event event;
@@ -46,7 +46,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				
 				if(event.key.code == Keyboard::Comma)
 				{
-					restart(tab_point, tab_erreur, k, temps_debut);
+					restart(tab_point, tab_erreur, k, chrono, l1, l2, aire, e, ligneX,ligneY, tab_pixel);
 				}
 			}
 		}
@@ -181,6 +181,19 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 
 /*********************************************************************************/
 
+void restart(tabpoint& t1, tabpoint& t2, int& k, int& chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
+{
+	k=0;
+	chrono=0;
+	t1.reset();
+	t2.reset();
+	aire=0;
+	l1.set(xcentre+r-(k+1)*e, ligneY);
+	l2.set(xcentre+r-(k+1)*e+e, ligneY);
+	for (int i = 0; i < e; i++)
+		for(int j = 0; j < L; j++)
+			{tab_pixel[i][j]=0;}
+}
 
 
 
