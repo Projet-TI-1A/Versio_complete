@@ -36,6 +36,6 @@ public:
 void Position_Curseur(int*, int* , RenderWindow&);
 void Ajoute_point(vector<point>,int*, RenderWindow&);
 //void Dessine_plus_points(vector<point>, int , RenderWindow&, int);
-void restart(tabpoint&, tabpoint&, int&, int&);
+
 
 #endif
