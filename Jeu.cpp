@@ -9,11 +9,12 @@
 #include "ligne.h"
 #include <math.h>
 #include <unistd.h>
+#include "resultat.h"
 using namespace std;
 using namespace sf;
 
 //Contient la partie de l'ancien main qui était dans la boucle principale
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, int& gamemode)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire, int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, int& gamemode)
 {
 		int temps_debut =clock(),H;
 		Event event;
@@ -71,10 +72,8 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				{
 					case 2: //95%
 					k+=1;
-					//l1.set(xcentre+r-(k+1)*e, ligneY);
-					//l2.set(xcentre+r-(k+1)*e+e, ligneY);
-					//réinitialisation des tableaux
-					aire=0;
+					compt_erreur( points, erreurs,tab_point, tab_erreur);
+					//réinitialisation des tableauxaire=0;
 					ligneX= xcentre +r-(k+1)*e;
 					tab_point.reset();
 					tab_erreur.reset();
@@ -91,44 +90,31 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 					break;
 					case 1 : 
 					//80%
+					for (int i=0;i<e;i++){
+						for (int y=0;y<l;y++){
+							if (tab_pixel[i][y]==0){
+								H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
+								if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
+									{
+									Dessine_restant(k,i,y, e, r, R, xcentre, window);
+									}
+							}
+						}
 					break;
 					
 				}
 			
 			}
 
-/*
-		for (int i = 0; i < L; i++)
-			{delete [] tab_pixel[i];
-			delete [] tab_pixel;}
-		*/
+/*for (int i = 0; i < L; i++)
+{delete [] tab_pixel[i];
+delete [] tab_pixel;}*/
+		
 		window.clear();
 		Grand_cercle(window);
 		ZoneFinie(window, k, e, xcentre, ycentre, r);
 		Position_ligne(ligneX, ligneY,window);
 		Position_ligne(ligneX+e, ligneY,window);
-		
-		
-		
-		if (aire_completee(aire, airetotale[k], condition80, condition95)==1 )
-		{
-			for (int i=0;i<e;i++){
-				for (int y=0;y<l;y++)
-				{
-					
-					
-					if (tab_pixel[i][y]==0)
-					{
-						 H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
-						if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
-						{
-								Dessine_restant(k,i,y, e, r, R, xcentre, window);
-						}
-						
-					}
-				}
-			}
-		}
 		Dessine_plus_points(tab_point, tab_erreur, window, R);
 	
 		window.display();
@@ -141,7 +127,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 
 //Contient la partie de l'ancien main avant la boucle principale
 
-void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,Texture& texture,Sprite& sprite)
+void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, Texture& texture,Sprite& sprite)
 
 {
 	k=0;
