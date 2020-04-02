@@ -105,6 +105,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				}
 			
 			}
+}
 
 /*for (int i = 0; i < L; i++)
 {delete [] tab_pixel[i];
