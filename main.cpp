@@ -10,7 +10,7 @@
 #include "ligne.h"
 #include <math.h>
 #include "Menu.h"
-
+#include "resultat.h"
 
 using namespace std;
 using namespace sf;
@@ -19,6 +19,7 @@ int main()
 {
 	//on crée toutes les varibles necéssaires aux fonction
 	int gamemode=0;
+	int points, erreurs;
 	int x, y,E,k, Dessin;
 	tabpoint tab_point;
 	tabpoint tab_erreur;
@@ -36,7 +37,7 @@ int main()
 	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
 	
 	//on initialise les variables liées a la parties simulation
-	init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, background, sprite);
+	init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs,background, sprite);
 	
 	
 	//sauf celle ci qu'on initialise ici sinon ca marche pas
@@ -58,7 +59,7 @@ int main()
 			break;
 			
 			case 1:
-			simulation( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, tab_point, tab_erreur, tab_pixel, background, sprite, p1, gamemode);
+			simulation( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, gamemode);
 			break;
 			
 		}
