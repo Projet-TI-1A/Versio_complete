@@ -5,10 +5,10 @@ EXEC=Test_V1
 
 all: $(EXEC)
 
-Test_V1: main.o interface.o toucher.o zone.o air.o ligne.o Jeu.o Menu.o
+Test_V1: main.o interface.o toucher.o zone.o air.o ligne.o Jeu.o Menu.o resultat.o
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
-main.o: interface.h toucher.h zone.h parametre.h ligne.h Jeu.h Menu.h
+main.o: interface.h toucher.h zone.h parametre.h ligne.h Jeu.h Menu.h resultat.h
 %.o: %.c
 	$(CXX) -o $@ -c $< $(CFLAGS)
 
@@ -37,5 +37,9 @@ Jeu.o: interface.h toucher.h zone.h parametre.h ligne.h Jeu.h
 	$(CXX) -o $@ -c $< $(CFLAGS)
 
 Menu.o: Menu.h
+%.o : %.c
+	$(CXX) -o $@ -c $< $(CFLAGS)
+
+resultat.o: resultat.h
 %.o : %.c
 	$(CXX) -o $@ -c $< $(CFLAGS)
