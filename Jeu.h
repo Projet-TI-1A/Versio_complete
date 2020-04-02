@@ -9,8 +9,7 @@
 #ifndef JEU_H
 #define JEU_H
 
-void init_jeu(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&,int&,int&,  Texture&, Sprite&);
-
-void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int&, int&,tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, int&);
+void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int* ,int& ,int& ,int& ,Texture& ,Sprite& ,ligne& ,ligne& );
+void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int&,int&, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&);
 
 #endif
