@@ -6,7 +6,7 @@ using namespace sf;
 using namespace std;
 
 
-void menu(RenderWindow& window, Text& text, Text& text2, string& Nom, int& gamemode)
+void menu(RenderWindow& window, Text& text, Text& text2, String& Nom, int& gamemode)
 {
 	Event event;
 	Font font;
@@ -15,11 +15,10 @@ void menu(RenderWindow& window, Text& text, Text& text2, string& Nom, int& gamem
 	// erreur...
 	}
 	text.setFont(font);
-	text.setString("Bienvenue dans la simulation\nVeuillez entrer votre nom et prenom");
+	text.setString(L"Bienvenue dans la simulation\nVeuillez entrer votre nom et prénom");
 	text.setCharacterSize(24); // exprimée en pixels, pas en points !
 	text.setFillColor(Color::White);
 	
-	char lettre;
 	
 	text2.setFont(font);
 	text2.setCharacterSize(24); // exprimée en pixels, pas en points !
@@ -43,13 +42,18 @@ void menu(RenderWindow& window, Text& text, Text& text2, string& Nom, int& gamem
 			
 			if (event.type == sf::Event::TextEntered)
 			{
-				if (event.text.unicode < 128)
+				if (event.text.unicode==8)
 				{
-					lettre=event.text.unicode;
-					Entreetext(Nom, lettre);
+					Nom.erase(Nom.getSize()-1,1);
+				}
+				else
+				{
+					Nom+=event.text.unicode;
 				}
 			}
 		}
+	
+	
 	text2.setString(Nom);
 	window.draw(text);
 	window.draw(text2);
@@ -57,11 +61,7 @@ void menu(RenderWindow& window, Text& text, Text& text2, string& Nom, int& gamem
 
 /**********************************************************************************/
 
-void Entreetext(string& Nom, char lettre)
-{
-	Nom.push_back(lettre);
 
-}
 
 
 

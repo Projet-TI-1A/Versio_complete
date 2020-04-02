@@ -5,5 +5,5 @@ using namespace std;
 using namespace sf;
 
 
-void menu(RenderWindow&, Text&, Text&, string&, int&);
-void Entreetext(string&, char );
+void menu(RenderWindow&, Text&, Text&, String&, int&);
+
