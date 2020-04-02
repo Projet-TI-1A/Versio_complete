@@ -10,6 +10,7 @@
 #include <math.h>
 #include <unistd.h>
 #include "resultat.h"
+#include "Fin.h"
 using namespace std;
 using namespace sf;
 
@@ -72,24 +73,27 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				{
 					case 2: //95%
 					k+=1;
-					compt_erreur( points, erreurs,tab_point, tab_erreur);
-					l1.set(xcentre+r-(k+1)*e, ligneY);
-					l2.set(xcentre+r-(k+1)*e+e, ligneY);
-					//réinitialisation des tableaux
-					aire=0;
-					ligneX= xcentre +r-(k+1)*e;
-					tab_point.reset();
-					tab_erreur.reset();
-					for (int i = 0; i < e; i++)
-					for(int j = 0; j < L; j++)
-							{tab_pixel[i][j]=0;}
-					window.clear();
-					Grand_cercle(window);
-					ZoneFinie(window, k, e, xcentre, ycentre, r);
-					Position_ligne(ligneX, ligneY,window);
-					Position_ligne(ligneX+e, ligneY,window);
-					window.display();
-					sleep(1);
+					if (k<nbzone){					
+						compt_erreur( points, erreurs,tab_point, tab_erreur);
+						l1.set(xcentre+r-(k+1)*e, ligneY);
+						l2.set(xcentre+r-(k+1)*e+e, ligneY);
+						//réinitialisation des tableaux
+						aire=0;
+						ligneX= xcentre +r-(k+1)*e;
+						tab_point.reset();
+						tab_erreur.reset();
+						for (int i = 0; i < e; i++)
+						for(int j = 0; j < L; j++)
+								{tab_pixel[i][j]=0;}
+						window.clear();
+						Grand_cercle(window);
+						ZoneFinie(window, k, e, xcentre, ycentre, r);
+						Position_ligne(ligneX, ligneY,window);
+						Position_ligne(ligneX+e, ligneY,window);
+						window.display();
+						sleep(1);
+						}
+					else {gamemode=2;}
 					break;
 					case 1 : 
 					//80%
