@@ -30,14 +30,15 @@ int main()
 	sf::Texture background;
 	sf::Sprite sprite;
 	point p1;
+	ligne l1(0,0), l2(0,0);
 	Text text, text2;
-	string Nom;
+	String Nom;
 	
 	//on crée la fenetre
 	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
 	
 	//on initialise les variables liées a la parties simulation
-	init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs,background, sprite);
+	init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2);
 	
 	
 	//sauf celle ci qu'on initialise ici sinon ca marche pas
@@ -59,7 +60,7 @@ int main()
 			break;
 			
 			case 1:
-			simulation( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, gamemode);
+			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode);
 			break;
 			
 		}
