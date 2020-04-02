@@ -8,7 +8,7 @@
 #include <vector>
 #include "ligne.h"
 #include <math.h>
-
+#include <unistd.h>
 using namespace std;
 using namespace sf;
 
@@ -81,6 +81,13 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 					for (int i = 0; i < e; i++)
 					for(int j = 0; j < L; j++)
 							{tab_pixel[i][j]=0;}
+					window.clear();
+					Grand_cercle(window);
+					ZoneFinie(window, k, e, xcentre, ycentre, r);
+					Position_ligne(ligneX, ligneY,window);
+					Position_ligne(ligneX+e, ligneY,window);
+					window.display();
+					sleep(1);
 					break;
 					case 1 : 
 					//80%
