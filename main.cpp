@@ -35,6 +35,8 @@ int main()
 	Text text, text2;
 	String Nom;
 	int chrono = 0;
+	int n=0;
+	
 	//on crée la fenetre
 	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
 	
@@ -65,11 +67,12 @@ int main()
 			break;
 			
 			case 2:
-			affichage_fin(window, gamemode, erreurs, points);
+			affichage_fin(window, gamemode, erreurs, points, n);
 			break;
 		}
 		
 		window.display();
 	}
+	Envoi(Nom, chrono, n);
 	return 0;
 }

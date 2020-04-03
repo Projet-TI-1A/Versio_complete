@@ -1,25 +1,28 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "resultat.h"
-
+#include <fstream>
 
 using namespace std;
 using namespace sf;
 
 
-void compt_erreur( int& points, int& erreurs,tabpoint tab, tabpoint erreur){
+void compt_erreur( int& points, int& erreurs,tabpoint tab, tabpoint erreur)
+{
 	points+=tab.gettaille();
 	erreurs+=erreur.gettaille();
 }
 
-void affichage_erreur(int points, int erreurs, RenderWindow& window){
+void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n)
+{
 	//calcul le pourcentage d'incisions a l'interieur de la zone
-	int n=points*100/float(points+erreurs);
+	n=float(points/float(points+erreurs))*100;
+	
 	// Conversion de l'entier
 	char nb[4];
  	sprintf(nb, "%d", n); 
  	Font font;//chargement de la police
-	if (!font.loadFromFile("arial.ttf"))
+	if (!font.loadFromFile("Arimo-Regular.ttf"))
 		{cout<<"erreur chargement police"<<endl;}
 	Text text;
 	text.setFont(font);
@@ -31,5 +34,45 @@ void affichage_erreur(int points, int erreurs, RenderWindow& window){
 	text.setString(nb);
 	text.setPosition(390,0);
 	window.draw(text);
-	
 }
+
+/**************************************************************************/
+
+void Envoi(String Nom, int chrono, int& n)
+{
+	ofstream Res ("RESULTAT.txt",ios::app);
+	Nom.erase(Nom.getSize()-1,1);
+	string text=Nom;
+	
+	if (Res)
+	{
+	Res << text << "	" << chrono << "s	" << n << "%" << endl;
+	}
+	
+	else
+	{
+		cout << "impossibe d'ouvrir le fichers" << endl;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

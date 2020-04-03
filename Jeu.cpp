@@ -61,19 +61,20 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
 					{
 					tab_point.append(p1);
-					points++;
+					
 					remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); 
 					}
 				if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)
 					{
 					tab_erreur.append(p1);
-					erreurs++;
+					
 					}
 				}
 				
 				switch ( aire_completee(aire, airetotale[k], condition80, condition95) )   //en fonction de l'aire on fait telle action mais on teste pas les autres
 				{
 					case 2: //95%
+					
 					k+=1;
 					if (k<nbzone){					
 						compt_erreur( points, erreurs,tab_point, tab_erreur);

@@ -8,7 +8,8 @@ using namespace sf;
 using namespace std;
 
 
-void affichage_fin(RenderWindow& window, int& gamemode, int erreurs, int points){
+void affichage_fin(RenderWindow& window, int& gamemode, int erreurs, int points, int& n)
+{
 	
 	Event event;
 	while (window.pollEvent(event))
@@ -24,7 +25,5 @@ void affichage_fin(RenderWindow& window, int& gamemode, int erreurs, int points)
 				}
 			}
 		}
-
-	affichage_erreur(points, erreurs, window);
-	
+	affichage_erreur(points, erreurs, window, n);
 }

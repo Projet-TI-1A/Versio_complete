@@ -4,4 +4,4 @@
 using namespace std;
 using namespace sf;
 
-void affichage_fin(RenderWindow& window, int& gamemode, int erreurs, int points);
+void affichage_fin(RenderWindow&, int&, int, int, int&);

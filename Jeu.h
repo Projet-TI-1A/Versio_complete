@@ -10,7 +10,8 @@
 #define JEU_H
 
 void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int* ,int& ,int& ,int& ,Texture& ,Sprite& ,ligne& ,ligne& );
-void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int&,int&, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&);
-void restart(tabpoint&, tabpoint&, int&, int&, ligne&, ligne& ,int&, int, int, int, int**);
 
+void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int&,int&, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&, int&);
+
+void restart(tabpoint&, tabpoint&, int&, int&, ligne&, ligne&,int&, int, int, int , int**);
 #endif
