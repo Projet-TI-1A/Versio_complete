@@ -11,6 +11,8 @@
 #include <unistd.h>
 #include "resultat.h"
 #include "Fin.h"
+#include "Jeu.h"
+
 using namespace std;
 using namespace sf;
 
@@ -47,7 +49,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				
 				if(event.key.code == Keyboard::Comma)
 				{
-					restart(tab_point, tab_erreur, k, chrono, l1, l2, aire, e, ligneX,ligneY, tab_pixel);
+					restart(tab_point, tab_erreur, k, chrono, l1, l2, aire, e, ligneX, ligneY, tab_pixel);
 				}
 			}
 		}
