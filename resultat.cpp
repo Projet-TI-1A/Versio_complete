@@ -1,7 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "resultat.h"
+
 #include <fstream>
+
+#include <ctime>
+
 
 using namespace std;
 using namespace sf;
@@ -13,18 +17,19 @@ void compt_erreur( int& points, int& erreurs,tabpoint tab, tabpoint erreur)
 	erreurs+=erreur.gettaille();
 }
 
-void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n)
+void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n, time_t& temps)
 {
 	//calcul le pourcentage d'incisions a l'interieur de la zone
 	n=float(points/float(points+erreurs))*100;
 	
 	// Conversion de l'entier
-	char nb[4];
- 	sprintf(nb, "%d", n); 
+	char nb[4], tps[4];
+ 	sprintf(nb, "%d", n);
+	 sprintf(tps, "%d", temps); 
  	Font font;//chargement de la police
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
 		{cout<<"erreur chargement police"<<endl;}
-	Text text;
+	Text text,text2;
 	text.setFont(font);
 	text.setString("Pourcentage d'incisions a l'interieur de la zone:");
 	text.setCharacterSize(16);
@@ -34,11 +39,22 @@ void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n)
 	text.setString(nb);
 	text.setPosition(390,0);
 	window.draw(text);
+
+	text2.setFont(font);
+	text2.setString("temps de simulation");
+	text2.setCharacterSize(16);
+	text2.setFillColor(Color::White);
+	text2.setStyle(sf::Text::Bold | sf::Text::Underlined);
+	text2.setPosition(0,50);
+	window.draw(text2);
+	text2.setString(tps);
+	text2.setPosition(390,50);
+	window.draw(text2);
 }
 
 /**************************************************************************/
 
-void Envoi(String Nom, int chrono, int& n)
+void Envoi(String Nom, time_t& chrono, int& n)
 {
 	ofstream Res ("RESULTAT.txt",ios::app);
 	Nom.erase(Nom.getSize()-1,1);
@@ -58,21 +74,20 @@ void Envoi(String Nom, int chrono, int& n)
 
 
 
+ 
+
+int chronosimul(time_t temps_debut)
+{
+//temps en secondes
+time_t temps_fin; 
+time_t temps_operation;  
+
+time(&temps_fin); 
+temps_operation = temps_fin-temps_debut;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+return temps_operation;
+}
 
 
 

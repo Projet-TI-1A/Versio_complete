@@ -10,73 +10,68 @@
 #include <math.h>
 #include <unistd.h>
 #include "resultat.h"
+
 #include "Fin.h"
 #include "Jeu.h"
+
+#include <ctime>
+#include <time.h>
+
 
 using namespace std;
 using namespace sf;
 
 //Contient la partie de l'ancien main qui était dans la boucle principale
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, int& chrono)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono)
 {
-		int temps_debut =clock(),H;
+		time_t temps_debut; int H,m=0;
+		time(&temps_debut); 
 		Event event;
-		while (window.pollEvent(event))
+		
+		window.clear();
+		Grand_cercle(window);
+		l1.Position_ligne(window);
+		l2.Position_ligne(window);
+		window.display();	
+		
+		
+
+	while(k<nbzone)
+	{
+		
+		
+		if (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
-				{window.close();}
+				{window.close();k=nbzone;}
+			
 			
 			if (event.type == Event::KeyPressed)
 			{
+				if ((event.key.code == Keyboard::Q) || (event.key.code == Keyboard::N))
+					{window.close();k=nbzone;}
+				
 				if (event.key.code == Keyboard::B)
-				{
-					Dessin = true;
-				}
-				
-				if ((event.key.code == Keyboard::Q) or (event.key.code == Keyboard::N))
-				{
-					window.close();
-				}
-			}
-			
-			
-			if (event.type == Event::KeyReleased)
-			{
-				if (event.key.code == Keyboard::B)
-				{
-					Dessin = false ;
-				}
-				
-				if(event.key.code == Keyboard::Comma)
-				{
-					restart(tab_point, tab_erreur, k, chrono, l1, l2, aire, e, ligneX, ligneY, tab_pixel);
-				}
-			}
-		}
-		
-			if (Dessin)
-			{	
-				Position_Curseur(&x, &y, window);
-				p1.set(x,y); 
-				if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
+				{	
+							
+
+					Position_Curseur(&x, &y, window);
+					p1.set(x,y); 
+					if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
+						{
+						tab_point.append(p1);
+						points++;
+						remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); 
+						}
+					if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)
+						{
+						tab_erreur.append(p1);
+						erreurs++;
+						}
+					if (aire_completee(aire, airetotale[k], condition80, condition95)==2)
 					{
-					tab_point.append(p1);
-					
-					remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); 
-					}
-				if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)
-					{
-					tab_erreur.append(p1);
-					
-					}
-				}
-				
-				switch ( aire_completee(aire, airetotale[k], condition80, condition95) )   //en fonction de l'aire on fait telle action mais on teste pas les autres
-				{
-					case 2: //95%
-					
-					k+=1;
-					if (k<nbzone){					
+						k+=1;
+						m=0;
 						compt_erreur( points, erreurs,tab_point, tab_erreur);
 						l1.set(xcentre+r-(k+1)*e, ligneY);
 						l2.set(xcentre+r-(k+1)*e+e, ligneY);
@@ -88,71 +83,57 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						for (int i = 0; i < e; i++)
 						for(int j = 0; j < L; j++)
 								{tab_pixel[i][j]=0;}
+						
 						window.clear();
 						Grand_cercle(window);
+						l1.Position_ligne(window);
+						l2.Position_ligne(window);
 						ZoneFinie(window, k, e, xcentre, ycentre, r);
-						Position_ligne(ligneX, ligneY,window);
-						Position_ligne(ligneX+e, ligneY,window);
 						window.display();
 						sleep(1);
-						}
-					else {gamemode=2;}
-					break;
-					case 1 : 
-					//80%
-					for (int i=0;i<e;i++){
-						for (int y=0;y<l;y++){
-							if (tab_pixel[i][y]==0){
-								H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
-								if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
-									{
-									Dessine_restant(k,i,y, e, r, R, xcentre, window);
-									}
-							}
-						}
-					break;
-					
-				}
-			
-			
-}
-
-/*for (int i = 0; i < L; i++)
-{delete [] tab_pixel[i];
-delete [] tab_pixel;}*/
-		
-		
-		Grand_cercle(window);
-		ZoneFinie(window, k, e, xcentre, ycentre, r);
-		l1.Position_ligne(window);
-		l2.Position_ligne(window);
-		
-		
-		if (aire_completee(aire, airetotale[k], condition80, condition95)==1 )
-		{
-			for (int i=0;i<e;i++){
-				for (int y=0;y<l;y++)
-				{
-					
-					
-					if (tab_pixel[i][y]==0)
-					{
-						 H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
-						if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
-						{
-								Dessine_restant(k,i,y, e, r, R, xcentre, window);
-						}
-						
 					}
+					if (aire_completee(aire, airetotale[k], condition80, condition95)==1  && m==0)
+						{
+							
+							for (int i=0;i<e;i++){
+								for (int y=0;y<l;y++)
+								{
+									if (tab_pixel[i][y]==0)
+
+									{
+										H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
+										if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
+										{
+												Dessine_restant(k,i,y, e, r, R, xcentre, window);
+										}	
+									}
+								}
+							}
+							m=1;
+						}
+					Dessine_plus_points(tab_point, tab_erreur, window, R);
+					window.display();
 				}
+
+				if(event.key.code == Keyboard::Comma)
+				{
+					restart(tab_point, tab_erreur,k,temps_debut,l1, l2,aire,e,ligneX,ligneY,tab_pixel);
+				}
+					
+
+				
+
+					
+				
 			}
-		}
-		Dessine_plus_points(tab_point, tab_erreur, window, R);
 		
+		}
 		
 		/*test_fin(aire_completee(aire,airetotale[nbzone],condition95,condition80),temps_debut);*/
+	}
+	
+	if (k>=nbzone) {  chrono=chronosimul(temps_debut); gamemode=2;}	
 }
-
 
 
 /******************************************************************************/
@@ -188,19 +169,19 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 
 /*********************************************************************************/
 
-void restart(tabpoint& t1, tabpoint& t2, int& k, int& chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
+void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
-	chrono=0;
+	time(&chrono);;
 	t1.reset();
 	t2.reset();
 	aire=0;
 	l1.set(xcentre+r-(k+1)*e, ligneY);
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
 	for (int i = 0; i < e; i++)
-		for(int j = 0; j < L; j++)
+		{for(int j = 0; j < L; j++)
 			{tab_pixel[i][j]=0;}
+		}
+
+
 }
-
-
-

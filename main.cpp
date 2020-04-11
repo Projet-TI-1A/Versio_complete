@@ -11,7 +11,11 @@
 #include <math.h>
 #include "Menu.h"
 #include "resultat.h"
+
 #include "Fin.h"
+#include <ctime>
+#include <time.h>
+#include <unistd.h>
 
 using namespace std;
 using namespace sf;
@@ -34,7 +38,7 @@ int main()
 	ligne l1(0,0), l2(0,0);
 	Text text, text2;
 	String Nom;
-	int chrono = 0;
+	time_t temps_simul;
 	int n=0;
 	
 	//on crée la fenetre
@@ -50,29 +54,34 @@ int main()
 	{tab_pixel[i] = new int[L];}
 	
 	//Boucle principale
-	
-	while (window.isOpen())
+	int i=0;
+	if (window.isOpen())
 	{
+	
 		window.clear();
 		
 		//selon la valeur de gamemode, on change de phase de jeu
-		switch(gamemode)
+		if (gamemode==0)
 		{
-			case 0:
+			
 			menu(window, text, text2, Nom, gamemode);
-			break;
-			
-			case 1:
-			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, chrono);
-			break;
-			
-			case 2:
-			affichage_fin(window, gamemode, erreurs, points, n);
-			break;
+		}
+		if (gamemode==1)	
+		{
+
+			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, temps_simul);
+		}
+		 if (gamemode==2)	
+		{
+			affichage_fin(window, gamemode, erreurs, points, n, temps_simul);
+		
 		}
 		
+		
 		window.display();
+		sleep(10);
+		
 	}
-	Envoi(Nom, chrono, n);
+	Envoi(Nom, temps_simul, n);
 	return 0;
 }

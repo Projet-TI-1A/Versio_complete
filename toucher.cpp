@@ -2,6 +2,9 @@
 #include <iostream>
 #include "toucher.h"
 #include "interface.h"
+#include <ctime>
+#include <time.h>
+
 
 
 using namespace std;

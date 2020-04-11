@@ -1,0 +1,3 @@
+prot	0s	0%
+prou	19s	2%
+pou	16s	100%

@@ -8,6 +8,7 @@ using namespace std;
 
 void menu(RenderWindow& window, Text& text, Text& text2, String& Nom, int& gamemode)
 {
+	
 	Event event;
 	Font font;
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
@@ -24,8 +25,9 @@ void menu(RenderWindow& window, Text& text, Text& text2, String& Nom, int& gamem
 	text2.setCharacterSize(24); // exprimée en pixels, pas en points !
 	text2.setFillColor(Color::Red);
 	text2.setPosition(10, 150);
-	
-	while (window.pollEvent(event))
+	 while (gamemode==0)
+	 {
+	if (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
 			{
@@ -51,12 +53,15 @@ void menu(RenderWindow& window, Text& text, Text& text2, String& Nom, int& gamem
 					Nom+=event.text.unicode;
 				}
 			}
+		
 		}
-	
 	
 	text2.setString(Nom);
 	window.draw(text);
 	window.draw(text2);
+	window.display();
+	
+}
 }
 
 /**********************************************************************************/
