@@ -28,27 +28,27 @@ int main()
 	int x, y,E,k, Dessin;
 	tabpoint tab_point;
 	tabpoint tab_erreur;
-	int e=2*int(r/nbzone);
+	int e;
 	int ligneX, ligneY;
-	int airetotale[nbzone];
+	int* airetotale;
 	int aire;
 	sf::Texture background;
 	sf::Sprite sprite;
 	point p1;
 	ligne l1(0,0), l2(0,0);
-	Text text, text2;
-	String Nom;
+	String Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
 	time_t temps_simul;
 	int n=0;
+	int ecran=0;
+	int ind=0;
+	int R, condition80, condition95, nbzone;
+	
+	
+	
 	
 	//on crée la fenetre
 	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
 	
-	//on initialise les variables liées a la parties simulation
-	init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2);
-	
-	
-	//sauf celle ci qu'on initialise ici sinon ca marche pas
 	int **tab_pixel = new int* [E];
 	for (int i = 0; i < E; i++)
 	{tab_pixel[i] = new int[L];}
@@ -63,25 +63,37 @@ int main()
 		//selon la valeur de gamemode, on change de phase de jeu
 		if (gamemode==0)
 		{
-			
-			menu(window, text, text2, Nom, gamemode);
+			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ecran);
 		}
 		if (gamemode==1)	
 		{
-
-			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, temps_simul);
+			//on initialise les variables liées a la parties simulation
+			
+			Initpara(nbzone, R, condition80, condition95);
+			
+			init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2, nbzone, R);
+			
+			/*********************************/
+			int **tab_pixel = new int* [E];
+			for (int i = 0; i < E; i++)
+			{tab_pixel[i] = new int[L];}
+			/*********************************/
+			
+			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, temps_simul, R, condition80, condition95, nbzone);
 		}
+		
 		 if (gamemode==2)	
 		{
 			affichage_fin(window, gamemode, erreurs, points, n, temps_simul);
-		
 		}
 		
+		if (gamemode==10)
+		{return 0;}
 		
 		window.display();
 		sleep(10);
 		
 	}
-	Envoi(Nom, temps_simul, n);
+	Envoi(Nom, Age, Formation, Niveau, temps_simul, n);
 	return 0;
 }

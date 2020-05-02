@@ -25,7 +25,7 @@ void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n, tim
 	// Conversion de l'entier
 	char nb[4], tps[4];
  	sprintf(nb, "%d", n);
-	 sprintf(tps, "%d", temps); 
+	sprintf(tps, "%ld", temps); 
  	Font font;//chargement de la police
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
 		{cout<<"erreur chargement police"<<endl;}
@@ -54,15 +54,18 @@ void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n, tim
 
 /**************************************************************************/
 
-void Envoi(String Nom, time_t& chrono, int& n)
+void Envoi(String Nom, String Age, String Formation, String Niveau, time_t& chrono, int& n)
 {
 	ofstream Res ("RESULTAT.txt",ios::app);
-	Nom.erase(Nom.getSize()-1,1);
-	string text=Nom;
+	//Nom.erase(Nom.getSize()-1,1);
+	//Age.erase(Age.getSize()-1,1);
+	cout << Nom.getSize() << endl;
+	cout << Age.getSize() << endl;
 	
+	string text=Nom, age=Age, formation=Formation, niveau=Niveau;
 	if (Res)
 	{
-	Res << text << "	" << chrono << "s	" << n << "%" << endl;
+	Res << text << "	" << age << "	" << formation << "	" << niveau <<"	" << chrono << "s	" << n << "%" << endl;
 	}
 	
 	else

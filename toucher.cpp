@@ -10,11 +10,11 @@
 using namespace std;
 using namespace sf;
 
-void Position_Curseur(int *x, int *y, RenderWindow& window)/*Récupère la postion de la souris relative à la fenêtre*/
+void Position_Curseur(int& x, int& y, RenderWindow& window)/*Récupère la postion de la souris relative à la fenêtre*/
 {
 	Vector2i localPosition = Mouse::getPosition(window);
-	*x = localPosition.x;
-	*y = localPosition.y;
+	x = localPosition.x;
+	y = localPosition.y;
 }
 
 /*******************************************************************************/
@@ -23,7 +23,7 @@ void Ajoute_point(vector<point> tab_point, int* taille, RenderWindow& window)
 {
 	int x, y;
 	point p1;
-	Position_Curseur(&x, &y, window);
+	Position_Curseur(x, y, window);
 	p1.set(x,y);
 	
 	tab_point.push_back(p1);

@@ -13,7 +13,7 @@ using namespace std;
 void compt_erreur( int& points, int& erreurs,tabpoint tab, tabpoint erreur);
 
 void affichage_erreur(int, int, RenderWindow&, int&, time_t&);
-void Envoi(String, time_t&, int&);
+void Envoi(String, String, String, String, time_t&, int&);
 
 int chronosimul(time_t temps_debut);
 

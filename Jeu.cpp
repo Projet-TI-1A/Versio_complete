@@ -10,7 +10,7 @@
 #include <math.h>
 #include <unistd.h>
 #include "resultat.h"
-
+#include <fstream>
 #include "Fin.h"
 #include "Jeu.h"
 
@@ -22,7 +22,7 @@ using namespace std;
 using namespace sf;
 
 //Contient la partie de l'ancien main qui était dans la boucle principale
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono, int R, int condition80, int condition95, int nbzone)
 {
 		time_t temps_debut; int H,m=0;
 		time(&temps_debut); 
@@ -36,26 +36,28 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		
 		
 
-	while(k<nbzone)
+	while(k<nbzone and gamemode==1)
 	{
 		
 		
 		if (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
-				{window.close();k=nbzone;}
+				{window.close();
+				gamemode=10;}
 			
 			
 			if (event.type == Event::KeyPressed)
 			{
 				if ((event.key.code == Keyboard::Q) || (event.key.code == Keyboard::N))
-					{window.close();k=nbzone;}
+					{window.close();
+					gamemode=10;}
 				
 				if (event.key.code == Keyboard::B)
 				{	
 							
 
-					Position_Curseur(&x, &y, window);
+					Position_Curseur(x, y, window);
 					p1.set(x,y); 
 					if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
 						{
@@ -140,7 +142,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 
 //Contient la partie de l'ancien main avant la boucle principale
 
-void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire, int& points, int& erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2)
+void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire, int& points, int& erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2, int nbzone, int& R)
 
 {
 	k=0;
@@ -149,7 +151,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	e=2*int(r/nbzone);
 	ligneX= xcentre +r-(k+1)*e;
 	ligneY=20;
-	airetotale[nbzone];
+	airetotale= new int[nbzone];
 	aire=0;
 	E = e+1;
 	
@@ -164,6 +166,8 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	
 	sprite.setTexture(texture);
 	sprite.setScale(sf::Vector2f(1.5f,1.5f));
+	
+	airetotale= new int[nbzone];
 
 }
 
@@ -182,6 +186,48 @@ void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne
 		{for(int j = 0; j < L; j++)
 			{tab_pixel[i][j]=0;}
 		}
-
-
 }
+
+/************************************************************************************/
+
+void Initpara(int& nbzone, int& R, int& Condition80, int& Condition95)
+{
+	ifstream Param("PARAMETRE.txt");
+	
+	if(Param)
+	{
+	Param >> nbzone >> R >> Condition80 >> Condition95;
+	}
+	
+	else
+	{
+		cout << "Erreur, impossible d'ouvrir le fichier" << endl;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
