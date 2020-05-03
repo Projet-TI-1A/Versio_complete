@@ -25,5 +25,6 @@ void Champtxt(Event&, String&);
 void reglage(RenderWindow&, Font, int&);
 void Defaut(String&, String&, String&, String&);
 void Enregistrer(String&, String&, String&, String&);
+void Verif(bool&, int&, int&, int&, int&);
 
 #endif

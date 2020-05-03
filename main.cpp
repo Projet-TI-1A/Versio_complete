@@ -40,7 +40,7 @@ int main()
 	time_t temps_simul;
 	int n=0;
 	int ecran=0;
-	int ind=0;
+	bool ind=false;
 	int R, condition80, condition95, nbzone;
 	
 	
@@ -71,6 +71,7 @@ int main()
 			
 			Initpara(nbzone, R, condition80, condition95);
 			
+			Verif(ind, nbzone, R, condition80, condition95);
 			/******************/
 			airetotale= new int[nbzone];
 			/*****************/
@@ -81,8 +82,6 @@ int main()
 			int **tab_pixel = new int* [E];
 			for (int i = 0; i < E; i++)
 			{tab_pixel[i] = new int[L];}
-			
-			
 			/*********************************/
 			
 			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, temps_simul, R, condition80, condition95, nbzone);
