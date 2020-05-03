@@ -33,3 +33,20 @@ Non defini	Non defini	Non defini	Non defini	19s	0%
 Non defini	Non defini	Non defini	Non defini	7s	0%
 Non defini	Non defini	Non defini	Non defini	14s	0%
 Non defini	Non defini	Non defini	Non defini	35s	0%
+lorrain	21	Non defini	Novice	19s	0%
+lottain	21	Non defini	Non defini	14s	99%
+lorrain	21	Non defini	Novice	35s	99%
+lorrain	21	Chirurgien	Novice	16s	99%
+lorrain	21	Non defini	Novice	47s	99%
+Lorrain	21	Non defini	Novice	14s	99%
+Lorrain	21	Non defini	Novice	15s	99%
+Lorrain	21	Non defini	Novice	17s	99%
+Lorrain	21	Non defini	Novice	17s	99%
+Lorrain	21	Non defini	Novice	19s	99%
+Lorrain	21	Non defini	Novice	20s	99%
+Lorrain	21	Non defini	Novice	23s	99%
+Lorrain	21	Non defini	Novice	18s	99%
+Lorrain	21	Non defini	Novice	16s	99%
+Lorrain	21	Non defini	Novice	16s	99%
+Lorrain	21	Non defini	Novice	23s	99%
+Lorrain	21	Non defini	Novice	13s	99%

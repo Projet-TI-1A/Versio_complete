@@ -72,7 +72,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						}
 					if (aire_completee(aire, airetotale[k], condition80, condition95)==2)
 					{
-						cout << aire << endl;
+						
 						k+=1;
 						m=0;
 						compt_erreur( points, erreurs,tab_point, tab_erreur);
@@ -157,8 +157,8 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	E = e+1;
 	
 	for (int i = 0; i < nbzone; i++)
-	{airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);
-	cout << airetotale[i] << endl;} 
+	{airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);}
+	
 	
 	l1.set(xcentre+r-(k+1)*e, ligneY);
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
@@ -176,14 +176,14 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
-	time(&chrono);;
+	time(&chrono);
 	t1.reset();
 	t2.reset();
 	aire=0;
 	l1.set(xcentre+r-(k+1)*e, ligneY);
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
 	for (int i = 0; i < e; i++)
-		{for(int j = 0; j < L; j++)
+		{ for(int j = 0; j < L; j++)
 			{tab_pixel[i][j]=0;}
 		}
 }

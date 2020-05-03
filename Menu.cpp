@@ -1022,16 +1022,16 @@ void Enregistrer(String& Nbzones, String& R, String& Condition80, String& Condit
 
 /***********************************************************************************/
 
-void Verif(bool& ind, int& nbzone, int& R, int& condition80, int& condition95)
+void Verif(int& ind, int& nbzone, int& R, int& condition80, int& condition95)
 {
 	if ( nbzone==5 and R==20 and condition80==80 and condition95==95 )
 	{
-		ind = true;
+		ind = 2;
 	}
 	
 	else 
 	{
-		ind = false;
+		ind = 1;
 	}
 	
 }

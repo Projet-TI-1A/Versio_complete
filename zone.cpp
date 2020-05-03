@@ -68,11 +68,7 @@ while (i<xp+(R/2)+1)
 int aire_completee(int aire,int airetotale, int condition80, int condition95)
 
 {
-cout << "condition80 = " << condition80 << endl << "condition95= " << condition95 << endl;
-cout << "Aire = " << aire << endl << "airetotale = " << airetotale << endl;
 	float pourcentage=((float)(aire)/(float)(airetotale))*100;
-	
-	cout << pourcentage << endl;
 	
 	if (pourcentage>condition95) {return 2;}
 	else if (pourcentage>condition80) {return 1;}

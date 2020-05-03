@@ -17,6 +17,9 @@
 #include <time.h>
 #include <unistd.h>
 
+#include "basededonnees.h"
+#include <sqlite3.h> 
+
 using namespace std;
 using namespace sf;
 
@@ -37,11 +40,15 @@ int main()
 	point p1;
 	ligne l1(0,0), l2(0,0);
 	String Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
+	string temps,erreur;
 	time_t temps_simul;
 	int n=0;
 	int ecran=0;
-	bool ind=false;
+	int ind=0;
 	int R, condition80, condition95, nbzone;
+
+	SQLBASE objet1;
+	SQLBASE2 objet2;
 	
 	
 	
@@ -64,6 +71,10 @@ int main()
 		if (gamemode==0)
 		{
 			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ecran);
+
+			//initialisation de la base de données
+			objet1.SQLinitialisation(Nom,Prenom,Prenom2);
+			objet2.SQLinitialisation2(Age,Formation,Niveau,Endoscope);
 		}
 		if (gamemode==1)	
 		{
@@ -90,6 +101,19 @@ int main()
 		 if (gamemode==2)	
 		{
 			affichage_fin(window, gamemode, erreurs, points, n, temps_simul);
+
+			//remplissage des résultats et des incrémentations de test de la base de données
+			objet1.SQLcompteur(ind);
+			objet1.SQLrequete(ind);
+
+			
+			temps=nbToStr(temps_simul);
+			erreur=nbToStr(n);
+
+			objet2.SQLrecupererResults(temps,erreur);
+			objet2.SQLrecupererid(objet1);
+			objet2.SQLrecupererCompteur(ind,objet1);
+			objet2.SQLrequete2();
 		}
 		
 		if (gamemode==10)
