@@ -1,3 +1,35 @@
 prot	0s	0%
 prou	19s	2%
 pou	16s	100%
+Guillaume Deschamp	35s	90%
+Guillaum	4278190080s	0%
+guil	4278190080s	0%
+Guillaum	4278190080s	0%
+Guillzu	4278190080s	0%
+Guillaum	5s	0%
+Guillaum	2s	0%
+Guillaume Deschamp	48s	0%
+	1s	0%
+Non defin	4s	0%
+Non defin	418s	0%
+Non defin	2s	0%
+Non defin	2s	0%
+Non defin	1s	0%
+Non defin	2s	0%
+Non defin	3s	0%
+Non defin	2s	0%
+Non defin	3s	0%
+Non defin	2s	0%
+Non defin	2s	0%
+Non defin	Non defin	Endoscopiste	Bonjour	23s	0%
+Guillaume Deschamp	2	Non defini	Bonjour	23s	0%
+Guillaaume Deschamps	21	Chirurgien	Bonjour	25s	0%
+Non defini	Non defini	Non defini	Bonjour	17s	0%
+Guillaume Deschamps	20	Non defini	Bonjour	17s	0%
+Guillaume Deschamps	21	Endoscopiste	Bonjour	16s	0%
+Non defini	Non defini	Non defini	Non defini	10s	0%
+Non defini	Non defini	Non defini	Non defini	16s	0%
+Non defini	Non defini	Non defini	Non defini	19s	0%
+Non defini	Non defini	Non defini	Non defini	7s	0%
+Non defini	Non defini	Non defini	Non defini	14s	0%
+Non defini	Non defini	Non defini	Non defini	35s	0%

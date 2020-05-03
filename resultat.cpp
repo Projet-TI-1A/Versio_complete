@@ -59,8 +59,6 @@ void Envoi(String Nom, String Age, String Formation, String Niveau, time_t& chro
 	ofstream Res ("RESULTAT.txt",ios::app);
 	//Nom.erase(Nom.getSize()-1,1);
 	//Age.erase(Age.getSize()-1,1);
-	cout << Nom.getSize() << endl;
-	cout << Age.getSize() << endl;
 	
 	string text=Nom, age=Age, formation=Formation, niveau=Niveau;
 	if (Res)

@@ -72,6 +72,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						}
 					if (aire_completee(aire, airetotale[k], condition80, condition95)==2)
 					{
+						cout << aire << endl;
 						k+=1;
 						m=0;
 						compt_erreur( points, erreurs,tab_point, tab_erreur);
@@ -151,12 +152,13 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	e=2*int(r/nbzone);
 	ligneX= xcentre +r-(k+1)*e;
 	ligneY=20;
-	airetotale= new int[nbzone];
+	
 	aire=0;
 	E = e+1;
 	
 	for (int i = 0; i < nbzone; i++)
-	{airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);} 
+	{airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);
+	cout << airetotale[i] << endl;} 
 	
 	l1.set(xcentre+r-(k+1)*e, ligneY);
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
@@ -166,8 +168,6 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	
 	sprite.setTexture(texture);
 	sprite.setScale(sf::Vector2f(1.5f,1.5f));
-	
-	airetotale= new int[nbzone];
 
 }
 
