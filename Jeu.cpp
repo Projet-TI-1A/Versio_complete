@@ -29,9 +29,11 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		Event event;
 		
 		window.clear();
+		window.draw(sprite);
 		Grand_cercle(window);
 		l1.Position_ligne(window);
 		l2.Position_ligne(window);
+		
 		window.display();	
 		
 		
@@ -88,6 +90,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 								{tab_pixel[i][j]=0;}
 						
 						window.clear();
+						window.draw(sprite);
 						Grand_cercle(window);
 						l1.Position_ligne(window);
 						l2.Position_ligne(window);
@@ -163,11 +166,12 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	l1.set(xcentre+r-(k+1)*e, ligneY);
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
 	
-	if (!texture.loadFromFile("background_im22.jpg", sf::IntRect(0,0,480,320)))
+	if (!texture.loadFromFile("background_im2.jpg", sf::IntRect(0,0,490,340)))
 	{ /* Erreur*/ }
 	
 	sprite.setTexture(texture);
 	sprite.setScale(sf::Vector2f(1.5f,1.5f));
+	sprite.setPosition(0,0);
 
 }
 
