@@ -39,7 +39,7 @@ int main()
 	sf::Sprite sprite;
 	point p1;
 	ligne l1(0,0), l2(0,0);
-	String Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
+	string Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
 	string temps,erreur;
 	time_t temps_simul;
 	int n=0;
@@ -49,8 +49,6 @@ int main()
 
 	SQLBASE objet1;
 	SQLBASE2 objet2;
-	
-	
 	
 	
 	//on crée la fenetre
@@ -71,7 +69,8 @@ int main()
 		if (gamemode==0)
 		{
 			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ecran);
-
+			
+			
 			//initialisation de la base de données
 			objet1.SQLinitialisation(Nom,Prenom,Prenom2);
 			objet2.SQLinitialisation2(Age,Formation,Niveau,Endoscope);

@@ -261,19 +261,23 @@ void SQLBASE2::SQLrequete2(){
 
 
 
-      /* 
+
         int main(){
-        SQLBASE objet("Margot","Lorrain","Colette");
+        string Prenom="Guigui", Nom="Deschamps", Prenom2="Remi", age="21", formation="ÉTUDIANTE", niveau="Novice", endoscope="MANUEL";
+        
+        SQLBASE objet;
+        objet.SQLinitialisation(Prenom, Nom, Prenom2);
         objet.SQLcompteur(2);
         objet.SQLrequete(2);
 
-        SQLBASE2 obj("21","ÉTUDIANTE","MANUEL","60","10");
+        SQLBASE2 obj;
+        obj.SQLinitialisation2(age,formation,niveau,endoscope);
         obj.SQLrecupererid(objet);
         obj.SQLrecupererCompteur(2,objet);
         obj.SQLrequete2();
 
 
-        }*/
+        }
 
 
 

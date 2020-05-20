@@ -8,7 +8,7 @@ using namespace sf;
 using namespace std;
 
 
-void menu(RenderWindow& window, String& Prenom, String& Prenom2, String& Nom, String& Age, String& Formation, String& Niveau,String& Endoscope, int& gamemode, int& ecran)
+void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ecran)
 {
 	Font font;
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
@@ -180,7 +180,7 @@ void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran)
 
 /**********************************************************************************/
 
-void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, String& Prenom, int& ecran)
+void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, string& Prenom, int& ecran)
 {
 	
 	Event event;
@@ -213,7 +213,7 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Prenom, ecran, "Non defini", 290, 230, 140, 50);
+					Button(window, Prenom, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
 				}
 			}
@@ -235,7 +235,7 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 			{
 				if (event.text.unicode==8)
 				{
-					Prenom.erase(Prenom.getSize()-1,1);
+					Prenom.erase(Prenom.size()-1,1);
 				}
 				else
 				{
@@ -258,7 +258,7 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 }
 /**********************************************************************************/
 
-void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, String& Prenom, int& ecran)
+void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, string& Prenom, int& ecran)
 {
 	
 	Event event;
@@ -291,7 +291,7 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Prenom, ecran, "Non defini", 290, 230, 140, 50);
+					Button(window, Prenom, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
 				}
 			}
@@ -313,7 +313,7 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 			{
 				if (event.text.unicode==8)
 				{
-					Prenom.erase(Prenom.getSize()-1,1);
+					Prenom.erase(Prenom.size()-1,1);
 				}
 				else
 				{
@@ -337,7 +337,7 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 
 /**********************************************************************************/
 
-void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, String& Nom, int& ecran)
+void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, string& Nom, int& ecran)
 {
 	
 	Event event;
@@ -371,7 +371,7 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Nom, ecran, "Non defini", 290, 230, 140, 50);
+					Button(window, Nom, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
 				}
 			}
@@ -393,7 +393,7 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 			{
 				if (event.text.unicode==8)
 				{
-					Nom.erase(Nom.getSize()-1,1);
+					Nom.erase(Nom.size()-1,1);
 				}
 				else
 				{
@@ -417,7 +417,7 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 
 /*****************************************************************************/
 
-void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, String& Age, int& ecran)
+void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, string& Age, int& ecran)
 {
 	
 	Event event;
@@ -444,7 +444,7 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Age, ecran, "Non defini", 290, 230, 140, 50);
+					Button(window, Age, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
 				}
 			}
@@ -468,7 +468,7 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 			{
 				if (event.text.unicode==8)
 				{
-					Age.erase(Age.getSize()-1,1);
+					Age.erase(Age.size()-1,1);
 				}
 				else
 				{
@@ -493,7 +493,7 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 
 /********************************************************************************/
 
-void menu4(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, Text& text5, String& Formation, int& ecran)
+void menu4(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, Text& text5, string& Formation, int& ecran)
 {
 	
 	Event event;
@@ -529,7 +529,7 @@ void menu4(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Formation, ecran, "Non defini", 290, 230, 140, 50);
+					Button(window, Formation, ecran, "Non_defini", 290, 230, 140, 50);
 					Button(window, Formation, ecran, "Chirurgien", 160,50, 160, 50);
 					Button(window, Formation, ecran, "Endoscopiste", 160,150, 160, 50);
 					Retour(window, ecran, 50, 230);
@@ -563,7 +563,7 @@ void menu4(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 
 /*******************************************************************************/
 
-void menu5(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, Text& text5,Text& text6, String& Niveau, int& ecran)
+void menu5(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, Text& text5,Text& text6, string& Niveau, int& ecran)
 {
 	Event event;
 	
@@ -608,7 +608,7 @@ void menu5(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Niveau, ecran, "Non defini", 290, 250, 140, 50);
+					Button(window, Niveau, ecran, "Non_defini", 290, 250, 140, 50);
 					Button(window, Niveau, ecran, "Novice", 160,50, 160, 50);
 					Button(window, Niveau, ecran, "Intermediaire", 160,110, 160, 50);
 					Button(window, Niveau, ecran, "Expert", 160,170, 160, 50);
@@ -643,7 +643,7 @@ void menu5(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 }
 /********************************************************************************/
 
-void menu6(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, Text& text5, String& Formation, int& ecran)
+void menu6(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& text4, Text& text5, string& Formation, int& ecran)
 {
 	
 	Event event;
@@ -682,7 +682,7 @@ void menu6(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					Button(window, Formation, ecran, "Non defini", 290, 250, 140, 50);
+					Button(window, Formation, ecran, "Non_defini", 290, 250, 140, 50);
 					Button(window, Formation, ecran, "Manuel", 160,100, 160, 50);
 					Button(window, Formation, ecran, "Robot", 160,175, 160, 50);
 					Retour(window, ecran, 50, 230);
@@ -715,7 +715,7 @@ void menu6(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 
 /*******************************************************************************/
 
-void Button(RenderWindow& window, String& text, int& ecran, String string,int coordx,int coordy,int taillex,int tailley)
+void Button(RenderWindow& window, string& text, int& ecran, string string,int coordx,int coordy,int taillex,int tailley)
 {
 	int x, y;
 	Position_Curseur(x, y, window);
