@@ -27,7 +27,7 @@ int main()
 {
 	//on crée toutes les varibles necéssaires aux fonction
 	int gamemode=0;
-	int points, erreurs;
+	int points[nbzonemax], erreurs[nbzonemax];
 	int x, y,E,k, Dessin;
 	tabpoint tab_point;
 	tabpoint tab_erreur;
@@ -40,9 +40,10 @@ int main()
 	point p1;
 	ligne l1(0,0), l2(0,0);
 	string Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
-	string temps,erreur;
+	string temps;
+	string erreurstr[nbzonemax];
 	time_t temps_simul;
-	int n=0;
+	int n[nbzonemax];
 	int ecran=0;
 	int ind=0;
 	int R, condition80, condition95, nbzone;
@@ -99,7 +100,7 @@ int main()
 		
 		 if (gamemode==2)	
 		{
-			affichage_fin(window, gamemode, erreurs, points, n, temps_simul);
+			affichage_fin(window, nbzone, gamemode, erreurs, points, n, temps_simul);
 
 			//remplissage des résultats et des incrémentations de test de la base de données
 			objet1.SQLcompteur(ind);
@@ -107,9 +108,10 @@ int main()
 
 			
 			temps=nbToStr(temps_simul);
-			erreur=nbToStr(n);
+			for(int i=0; i<nbzone;i++);
+				{erreurstr[i]=nbToStr(n[i]);}
 
-			objet2.SQLrecupererResults(temps,erreur);
+			objet2.SQLrecupererResults(temps,erreurstr[0]);
 			objet2.SQLrecupererid(objet1);
 			objet2.SQLrecupererCompteur(ind,objet1);
 			objet2.SQLrequete2();
@@ -122,6 +124,6 @@ int main()
 		sleep(10);
 		
 	}
-	Envoi(Nom, Age, Formation, Niveau, temps_simul, n);
+	Envoi(Nom, Age, Formation, Niveau, temps_simul, n[0]);
 	return 0;
 }
