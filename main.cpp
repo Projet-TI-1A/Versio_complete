@@ -44,20 +44,16 @@ int main()
 	string erreurstr[nbzonemax];
 	time_t temps_simul;
 	int n[nbzonemax];
-	int ecran=0;
-	int ind=0;
+	int ind=2;
 	int R, condition80, condition95, nbzone;
 
 	SQLBASE objet1;
 	SQLBASE2 objet2;
 	
 	
+	
 	//on crée la fenetre
 	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
-	
-	int **tab_pixel = new int* [E];
-	for (int i = 0; i < E; i++)
-	{tab_pixel[i] = new int[L];}
 	
 	//Boucle principale
 	int i=0;
@@ -69,7 +65,7 @@ int main()
 		//selon la valeur de gamemode, on change de phase de jeu
 		if (gamemode==0)
 		{
-			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ecran);
+			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ind);
 			
 			
 			//initialisation de la base de données
@@ -82,7 +78,6 @@ int main()
 			
 			Initpara(nbzone, R, condition80, condition95);
 			
-			Verif(ind, nbzone, R, condition80, condition95);
 			/******************/
 			airetotale= new int[nbzone];
 			/*****************/

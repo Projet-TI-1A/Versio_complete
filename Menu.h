@@ -10,7 +10,7 @@ using namespace sf;
 
 
 void menu(RenderWindow&, string&, string&, string&, string&, string&, string&, string&, int&, int&);
-void menu0(RenderWindow&, Text&, Text&, int&);
+void menu0(RenderWindow&, Text&, Text&, int&, string&, string&);
 void menuprenom(RenderWindow&, Text&, Text&, Text&, Text&, string&, int&);
 void menuprenom2(RenderWindow&, Text&, Text&, Text&, Text&, string&, int&);
 void menunom(RenderWindow&, Text&, Text&, Text&, Text&, string&, int&);
@@ -26,5 +26,6 @@ void reglage(RenderWindow&, Font, int&);
 void Defaut(String&, String&, String&, String&);
 void Enregistrer(String&, String&, String&, String&);
 void Verif(int&, int&, int&, int&, int&);
+bool recherche(string&,string&,string&);
 
 #endif

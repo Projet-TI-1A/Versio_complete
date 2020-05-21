@@ -8,8 +8,10 @@ using namespace sf;
 using namespace std;
 
 
-void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ecran)
+void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ind)
 {
+	int ecran=1;
+	
 	Font font;
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
 	{
@@ -61,7 +63,7 @@ void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, st
 		{
 		
 		case 0:
-		menu0( window, text, text2, ecran);
+		menu0( window, text, text2, ecran, Prenom, Nom);
 		
 		case 1:
 		text.setString(L"Bienvenue dans la simulation\nVeuillez entrer votre prénom (sans accents)");
@@ -74,6 +76,12 @@ void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, st
 		
 		case 3:
 		menunom( window, text, text2, text3, text4, Nom, ecran);
+		if (recherche(Prenom,Prenom2,Nom))
+		{
+			ind=1;
+			ecran=0;
+		}
+		
 		break;
 		
 		case 4:
@@ -110,10 +118,23 @@ void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, st
 
 /**********************************************************************************/
 
-void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran)
+void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran, string& Prenom, string& Nom)
 {
 	
 	Event event;
+	Text text3;
+	string s="Bonjour administrateur "+Prenom+" "+Nom;
+	
+	Font font;
+	if (!font.loadFromFile("Arimo-Regular.ttf"))
+	{
+	// erreur...
+	}
+	
+	text3.setFont(font);
+	text3.setString(s);
+	text3.setFillColor(Color::White);
+	text3.setCharacterSize(24);
 	
 	text.setString(L"Débuter la simulation");
 	text.setFillColor(Color::Black);
@@ -146,7 +167,7 @@ void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran)
 					{
 						if (y>75 and y<(75+50))
 						{
-							ecran += 1;
+							ecran = 8;
 						}
 						
 						if (y>200 and y<(200+50))
@@ -173,6 +194,7 @@ void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran)
 	window.draw(rectangle2);
 	window.draw(text);
 	window.draw(text2);
+	window.draw(text3);
 	window.display();
 	}
 }
@@ -192,6 +214,7 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 	{
 	// erreur...
 	}
+	
 	
 	text.setCharacterSize(24); // exprimée en pixels, pas en points !
 	text.setFillColor(Color::White);
@@ -230,7 +253,7 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					Button(window, Prenom, ecran, "Non_defini", 290, 230, 140, 50);
-					Retour(window, ecran, 50, 230);
+					//Retour(window, ecran, 50, 230);
 					if (Button(window,290,150,140,50))
 					{
 						ecran+=1;
@@ -261,12 +284,12 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 	
 	window.clear();
 	window.draw(rectangle1);
-	window.draw(rectangle2);
+	//window.draw(rectangle2);
 	window.draw(rectangle3);
 	window.draw(text);
 	window.draw(text2);
 	window.draw(text3);
-	window.draw(text4);
+	//window.draw(text4);
 	window.draw(text5);
 	window.display();
 	}
@@ -1101,6 +1124,57 @@ void Verif(int& ind, int& nbzone, int& R, int& condition80, int& condition95)
 
 /*****************************************************************************************/
 
+bool recherche(string& Prenom, string& Prenom2, string& Nom)
+{
+	ifstream Id ("IDENTIFIANT.txt");
+	string prenom,prenom2,nom, ligne;
+	bool admin=false;
+	int i=0,j=0;
+	
+	if(Id)
+	{
+		while(getline(Id, ligne) and admin==false)
+		{
+			while(i<ligne.size())
+			{
+				if (ligne[i]==' ')
+				{
+					j++;
+				}
+				
+				else if (j==0)
+				{
+					prenom+=ligne[i];
+				}
+				
+				else if (j==1)
+				{
+					prenom2+=ligne[i];
+				}
+				
+				else if (j==2)
+				{
+					nom+=ligne[i];
+				}
+				
+				i++;
+			}
+			i=0;
+			j=0;
+			
+			admin=(prenom==Prenom and prenom2==Prenom2 and nom==Nom);
+			prenom.clear();
+			prenom2.clear();
+			nom.clear();
+		}
+	}
+	else
+	{
+		cout << "ERREUR: Impossible d'ouvrir le fichier en lecture." << endl;
+	}
+	
+	return admin;
+}
 
 
 
