@@ -22,7 +22,7 @@ using namespace std;
 using namespace sf;
 
 //Contient la partie de l'ancien main qui était dans la boucle principale
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int& points, int& erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono, int R, int condition80, int condition95, int nbzone)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono, int R, int condition80, int condition95, int nbzone)
 {
 		time_t temps_debut; int H,m=0;
 		time(&temps_debut); 
@@ -64,20 +64,20 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 					if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
 						{
 						tab_point.append(p1);
-						points++;
+						points[k]++;
 						remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); 
 						}
 					if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)
 						{
 						tab_erreur.append(p1);
-						erreurs++;
+						erreurs[k]++;
 						}
 					if (aire_completee(aire, airetotale[k], condition80, condition95)==2)
 					{
 						
 						k+=1;
 						m=0;
-						compt_erreur( points, erreurs,tab_point, tab_erreur);
+						//compt_erreur( points, erreurs,tab_point, tab_erreur);
 						l1.set(xcentre+r-(k+1)*e, ligneY);
 						l2.set(xcentre+r-(k+1)*e+e, ligneY);
 						//réinitialisation des tableaux
@@ -146,7 +146,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 
 //Contient la partie de l'ancien main avant la boucle principale
 
-void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire, int& points, int& erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2, int nbzone, int& R)
+void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2, int nbzone, int& R)
 
 {
 	k=0;
@@ -160,7 +160,11 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	E = e+1;
 	
 	for (int i = 0; i < nbzone; i++)
-	{airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);}
+	{
+	airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);
+	points[i]=0;
+	erreurs[i]=0;	
+	}
 	
 	
 	l1.set(xcentre+r-(k+1)*e, ligneY);
@@ -172,7 +176,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	sprite.setTexture(texture);
 	sprite.setScale(sf::Vector2f(1.5f,1.5f));
 	sprite.setPosition(0,0);
-
+	
 }
 
 /*********************************************************************************/
