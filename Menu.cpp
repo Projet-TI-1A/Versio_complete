@@ -185,17 +185,29 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 	
 	Event event;
 	
+	Text text5;
+	Font font;
+	
+	if (!font.loadFromFile("Arimo-Regular.ttf"))
+	{
+	// erreur...
+	}
+	
 	text.setCharacterSize(24); // exprimée en pixels, pas en points !
 	text.setFillColor(Color::White);
 	text.setPosition(0,0);
 	
 	text2.setCharacterSize(24); // exprimée en pixels, pas en points !
-	text2.setFillColor(Color::Red);
-	text2.setPosition(10, 150);
 	
 	text2.setString(Prenom);
 	text2.setFillColor(Color::Red);
 	text2.setPosition(10, 150);
+	
+	text5.setFont(font);
+	text5.setString(L"Suivant");
+	text5.setFillColor(Color::Black);
+	text5.setCharacterSize(24);
+	text5.setPosition(310,160);
 	
 	RectangleShape rectangle1(Vector2f(140, 50));
 	rectangle1.setPosition(290,230);
@@ -204,6 +216,10 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 	RectangleShape rectangle2(Vector2f(140, 50));
 	rectangle2.setPosition(50,230);
 	rectangle2.setFillColor(Color::White);
+	
+	RectangleShape rectangle3(Vector2f(140, 50));
+	rectangle3.setPosition(290,150);
+	rectangle3.setFillColor(Color::White);
 	
 	while (ecran==1)
 	{
@@ -215,6 +231,10 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 				{
 					Button(window, Prenom, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
+					if (Button(window,290,150,140,50))
+					{
+						ecran+=1;
+					}
 				}
 			}
 			if (event.type == Event::Closed)
@@ -223,13 +243,6 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 				ecran=10;
 			}
 			
-			if (event.type == Event::KeyPressed)
-			{
-				if (event.key.code == Keyboard::Return)
-				{
-					ecran+=1;
-				}
-			}
 			
 			if (event.type == sf::Event::TextEntered)
 			{
@@ -249,10 +262,12 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 	window.clear();
 	window.draw(rectangle1);
 	window.draw(rectangle2);
+	window.draw(rectangle3);
 	window.draw(text);
 	window.draw(text2);
 	window.draw(text3);
 	window.draw(text4);
+	window.draw(text5);
 	window.display();
 	}
 }
@@ -262,6 +277,13 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 {
 	
 	Event event;
+	Text text5;
+	Font font;
+	
+	if (!font.loadFromFile("Arimo-Regular.ttf"))
+	{
+	// erreur...
+	}
 	
 	text.setCharacterSize(24); // exprimée en pixels, pas en points !
 	text.setFillColor(Color::White);
@@ -274,6 +296,12 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 	text2.setString(Prenom);
 	text2.setFillColor(Color::Red);
 	text2.setPosition(10, 150);
+	text5.setFont(font);
+	
+	text5.setString(L"Suivant");
+	text5.setFillColor(Color::Black);
+	text5.setCharacterSize(24);
+	text5.setPosition(310,160);
 	
 	RectangleShape rectangle1(Vector2f(140, 50));
 	rectangle1.setPosition(290,230);
@@ -282,6 +310,10 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 	RectangleShape rectangle2(Vector2f(140, 50));
 	rectangle2.setPosition(50,230);
 	rectangle2.setFillColor(Color::White);
+	
+	RectangleShape rectangle3(Vector2f(140, 50));
+	rectangle3.setPosition(290,150);
+	rectangle3.setFillColor(Color::White);
 	
 	while (ecran==2)
 	{
@@ -293,20 +325,16 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 				{
 					Button(window, Prenom, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
+					if (Button(window,290,150,140,50))
+					{
+						ecran+=1;
+					}
 				}
 			}
 			if (event.type == Event::Closed)
 			{
 				window.close();
 				ecran=10;
-			}
-			
-			if (event.type == Event::KeyPressed)
-			{
-				if (event.key.code == Keyboard::Return)
-				{
-					ecran+=1;
-				}
 			}
 			
 			if (event.type == sf::Event::TextEntered)
@@ -327,10 +355,12 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 	window.clear();
 	window.draw(rectangle1);
 	window.draw(rectangle2);
+	window.draw(rectangle3);
 	window.draw(text);
 	window.draw(text2);
 	window.draw(text3);
 	window.draw(text4);
+	window.draw(text5);
 	window.display();
 	}
 }
@@ -341,6 +371,13 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 {
 	
 	Event event;
+	Text text5;
+	Font font;
+	
+	if (!font.loadFromFile("Arimo-Regular.ttf"))
+	{
+	// erreur...
+	}
 	
 	text.setString(L"Bienvenue dans la simulation\nVeuillez entrer votre nom (sans accents)");
 	text.setCharacterSize(24); // exprimée en pixels, pas en points !
@@ -355,6 +392,12 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 	text2.setFillColor(Color::Red);
 	text2.setPosition(10, 150);
 	
+	text5.setFont(font);
+	text5.setString(L"Suivant");
+	text5.setFillColor(Color::Black);
+	text5.setCharacterSize(24);
+	text5.setPosition(310,160);
+	
 	RectangleShape rectangle1(Vector2f(140, 50));
 	rectangle1.setPosition(290,230);
 	rectangle1.setFillColor(Color::White);
@@ -362,6 +405,10 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 	RectangleShape rectangle2(Vector2f(140, 50));
 	rectangle2.setPosition(50,230);
 	rectangle2.setFillColor(Color::White);
+	
+	RectangleShape rectangle3(Vector2f(140, 50));
+	rectangle3.setPosition(290,150);
+	rectangle3.setFillColor(Color::White);
 	
 	while (ecran==3)
 	{
@@ -373,6 +420,10 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 				{
 					Button(window, Nom, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
+					if (Button(window,290,150,140,50))
+					{
+						ecran+=1;
+					}
 				}
 			}
 			if (event.type == Event::Closed)
@@ -381,13 +432,7 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 				ecran=10;
 			}
 			
-			if (event.type == Event::KeyPressed)
-			{
-				if (event.key.code == Keyboard::Return)
-				{
-					ecran=4;
-				}
-			}
+			
 			
 			if (event.type == sf::Event::TextEntered)
 			{
@@ -407,10 +452,12 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 	window.clear();
 	window.draw(rectangle1);
 	window.draw(rectangle2);
+	window.draw(rectangle3);
 	window.draw(text);
 	window.draw(text2);
 	window.draw(text3);
 	window.draw(text4);
+	window.draw(text5);
 	window.display();
 	}
 }
@@ -421,12 +468,25 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 {
 	
 	Event event;
+	Text text5;
+	Font font;
+	
+	if (!font.loadFromFile("Arimo-Regular.ttf"))
+	{
+	// erreur...
+	}
 	
 	text.setString(L"Veuillez rentrer votre âge :");
 	
 	text2.setString(Age);
 	text2.setFillColor(Color::Red);
 	text2.setPosition(10, 150);
+	
+	text5.setFont(font);
+	text5.setString(L"Suivant");
+	text5.setFillColor(Color::Black);
+	text5.setCharacterSize(24);
+	text5.setPosition(310,160);
 	
 	RectangleShape rectangle1(Vector2f(140, 50));
 	rectangle1.setPosition(290,230);
@@ -435,6 +495,10 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 	RectangleShape rectangle2(Vector2f(140, 50));
 	rectangle2.setPosition(50,230);
 	rectangle2.setFillColor(Color::White);
+	
+	RectangleShape rectangle3(Vector2f(140, 50));
+	rectangle3.setPosition(290,150);
+	rectangle3.setFillColor(Color::White);
 	
 	while (ecran==4)
 	{
@@ -446,6 +510,10 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 				{
 					Button(window, Age, ecran, "Non_defini", 290, 230, 140, 50);
 					Retour(window, ecran, 50, 230);
+					if (Button(window,290,150,140,50))
+					{
+						ecran+=1;
+					}
 				}
 			}
 			
@@ -456,13 +524,6 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 				ecran=10;
 			}
 			
-			if (event.type == Event::KeyPressed)
-			{
-				if (event.key.code == Keyboard::Return)
-				{
-					ecran=5;
-				}
-			}
 			
 			if (event.type == sf::Event::TextEntered)
 			{
@@ -482,10 +543,12 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 	window.clear();
 	window.draw(rectangle1);
 	window.draw(rectangle2);
+	window.draw(rectangle3);
 	window.draw(text);
 	window.draw(text2);
 	window.draw(text3);
 	window.draw(text4);
+	window.draw(text5);
 	window.display();
 	}
 
@@ -1035,6 +1098,8 @@ void Verif(int& ind, int& nbzone, int& R, int& condition80, int& condition95)
 	}
 	
 }
+
+/*****************************************************************************************/
 
 
 
