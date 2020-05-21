@@ -20,7 +20,7 @@ void compt_erreur( int& points, int& erreurs,tabpoint tab, tabpoint erreur)
 void affichage_erreur(int points, int erreurs, RenderWindow& window, int& n, time_t& temps)
 {
 	//calcul le pourcentage d'incisions a l'interieur de la zone
-	n=float(points/float(points+erreurs))*100;
+	n=float((points-erreurs)/float(points))*100;
 	
 	// Conversion de l'entier
 	char nb[4], tps[4];
