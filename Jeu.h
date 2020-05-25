@@ -15,7 +15,7 @@
 /**************Ce fichier contient le coeur de la simulation: la dissection de la tumeur à travers les différentes zones**************/
 
 //simulation de la dissection
-void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int* ,int& , int*, int*,Texture& ,Sprite& ,ligne& ,ligne& , int, int&);
+void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int* ,int& , int*, int*,Texture& ,Sprite& ,ligne& ,ligne& ,time_t*, int, int&);
 
 //Initialisation des variables necessaires pour la simulation
 void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int*,int*, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&, time_t*, int, int, int, int);
