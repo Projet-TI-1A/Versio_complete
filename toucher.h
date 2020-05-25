@@ -4,10 +4,12 @@
 #include <ctime>
 #include <time.h>
 
-
 using namespace std;
 using namespace sf;
 
+/************ Ce fichier contient les fonction qui récupèrent et traitent les données récupérées de l'écran*************/
+
+/*************************************Classe point******************************************/
 class point
 {
 private :
@@ -23,6 +25,8 @@ public :
 };
 
 
+/*************************************Classe tabpoint******************************************/
+
 class tabpoint
 {
 private:
@@ -37,8 +41,11 @@ public:
 
 };
 
+//Récupère la postion de la souris relative à la fenêtre
 void Position_Curseur(int&, int& , RenderWindow&);
+
+//Ajoute un point au tableau (qui collecte les points de l'écran touchés)
 void Ajoute_point(vector<point>,int*, RenderWindow&);
-//void Dessine_plus_points(vector<point>, int , RenderWindow&, int);
+
 
 #endif
