@@ -16,10 +16,10 @@ void affichage_fin(RenderWindow& window,int nbzone, int& gamemode, int* erreurs,
 	window.clear();
 	while (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)
+			if (event.type == Event::Closed) //fermer la fenetre si on clique sur la croix
 				{window.close();}
 			
-			if (event.type == Event::KeyPressed)
+			if (event.type == Event::KeyPressed)//fermer la fenetre si on appuie sur Q ou N
 			{
 				if ((event.key.code == Keyboard::Q) or (event.key.code == Keyboard::N))
 				{
@@ -27,5 +27,5 @@ void affichage_fin(RenderWindow& window,int nbzone, int& gamemode, int* erreurs,
 				}
 			}
 		}
-	affichage_erreur(nbzone, points, erreurs, window, n, temps);
+	affichage_erreur(nbzone, points, erreurs, window, n, temps); //on affiche les informations (cf resultats.cpp)
 }
