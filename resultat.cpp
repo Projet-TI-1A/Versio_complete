@@ -1,22 +1,13 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "resultat.h"
-
 #include <fstream>
-
 #include <ctime>
-
+#include "resultat.h"
 
 using namespace std;
 using namespace sf;
 
-
-void compt_erreur( int& points, int& erreurs,tabpoint tab, tabpoint erreur)
-{
-	points+=tab.gettaille();
-	erreurs+=erreur.gettaille();
-	
-}
+/****Ce fichier traite les information récupéréees pendant la simulation et leur affichage****/
 
 void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& window, int* n, time_t* temps)
 {
@@ -95,43 +86,18 @@ void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& wind
 	window.draw(text2);
 }
 
-/**************************************************************************/
+/****************************************************************************************/
 
-void Envoi(String Nom, String Age, String Formation, String Niveau, time_t& chrono, int& n)
-{
-	ofstream Res ("RESULTAT.txt",ios::app);
-	//Nom.erase(Nom.getSize()-1,1);
-	//Age.erase(Age.getSize()-1,1);
-	
-	string text=Nom, age=Age, formation=Formation, niveau=Niveau;
-	if (Res)
-	{
-	Res << text << "	" << age << "	" << formation << "	" << niveau <<"	" << chrono << "s	" << n << "%" << endl;
-	}
-	
-	else
-	{
-		cout << "impossibe d'ouvrir le fichers" << endl;
-	}
-}
-
-
-
-
- 
+//calcule une durée (durée de la simulation totale ou zone par zone)
 
 int chronosimul(time_t temps_debut)
 {
-//temps en secondes
-time_t temps_fin;
-time_t temps_operation;  
+	//temps en secondes
+	time_t temps_fin;
+	time_t temps_operation;  
+	
+	time(&temps_fin); 
+	temps_operation = temps_fin-temps_debut;
 
-time(&temps_fin); 
-temps_operation = temps_fin-temps_debut;
-
-
-return temps_operation;
+	return temps_operation;
 }
-
-
-
