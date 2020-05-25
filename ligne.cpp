@@ -5,8 +5,11 @@
 using namespace std;
 using namespace sf;
 
+/*****************fonctions de la classe ligne***********************/
+
+//Permet d'afficher la ligne à la position (x,y)
 void ligne::Position_ligne(RenderWindow& window)
-//Permet de mettre la ligne à la position (x,y)
+
 {
 	int x, y;
 	get(x,y);
@@ -17,6 +20,7 @@ void ligne::Position_ligne(RenderWindow& window)
 	window.draw(line);
 }
 
+//Permet regler les coordonées de la ligne
 ligne::ligne(int x, int y)
 {
 	set(x,y);
