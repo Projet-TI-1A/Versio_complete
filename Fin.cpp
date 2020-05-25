@@ -8,7 +8,7 @@ using namespace sf;
 using namespace std;
 
 
-void affichage_fin(RenderWindow& window,int nbzone, int& gamemode, int* erreurs, int* points, int* n, time_t& temps)
+void affichage_fin(RenderWindow& window,int nbzone, int& gamemode, int* erreurs, int* points, int* n, time_t* temps)
 {
 	
 	Event event;
