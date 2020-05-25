@@ -104,7 +104,6 @@ int main()
 			for(int i=0; i<nbzone;i++);
 				{temps=nbToStr[i](temps_simul[i]);}
 			
-			temps=nbToStr(temps_simul);
 			for(int i=0; i<nbzone;i++);
 				{erreurstr[i]=nbToStr(n[i]);}
 
