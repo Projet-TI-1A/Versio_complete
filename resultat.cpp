@@ -9,18 +9,21 @@ using namespace sf;
 
 /****Ce fichier traite les information récupéréees pendant la simulation et leur affichage****/
 
+//affichage du pourcentage d'incisions dans la bonne zone et du temps total de la simulation
+
 void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& window, int* n, time_t* temps)
 {
 	//calcul le pourcentage d'incisions a l'interieur de la zone
 	int erreurstot=0,pointstot=0;
-		
+	
+	//calcul du pourcentage d'erreurs zone par zone
 	for(int i=0;i<nbzones;i++)
 		{
 		n[i+1]=100*float((points[i]-erreurs[i])/float(points[i]+erreurs[i]));
 		erreurstot+=erreurs[i];
 		pointstot+=points[i];
 		}
-	
+	//calcul du pourcentage d'erreurs total
 	n[0]=100*abs(float(pointstot-erreurstot)/float(pointstot+erreurstot));
 	
 	// Conversion de l'entier
