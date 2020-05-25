@@ -21,7 +21,7 @@ void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int
 void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int*,int*, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&, time_t&, int, int, int, int);
 
 //fonction permettant de recomencer la simulation
-void restart(tabpoint&, tabpoint&, int&, time_t, ligne&, ligne&,int&, int, int, int , int**);
+void restart(tabpoint&, tabpoint&, int&, time_t, ligne&, ligne&,time_t* ,int&, int, int, int , int**);
 
 //initialisation des paramètres réglables par l'utilisateur via le menu
 void Initpara(int&, int&, int&, int&, int&);
