@@ -7,6 +7,7 @@
 using namespace sf;
 using namespace std;
 
+/****** ce fichier contient les fonction permettant d'afficher les données a l'utilisateur à la fin de simulation****/
 
 void affichage_fin(RenderWindow& window,int nbzone, int& gamemode, int* erreurs, int* points, int* n, time_t* temps)
 {
