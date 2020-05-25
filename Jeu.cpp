@@ -140,7 +140,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				//on recommence la simulation
 				if(event.key.code == Keyboard::Comma)
 				{
-					restart(tab_point, tab_erreur,k,temps_debut,l1, l2, tempsimul,aire,e,ligneX,ligneY,tab_pixel);
+					restart(tab_point, tab_erreur,k,temps_debut,l1, l2, chrono,aire,e,ligneX,ligneY,tab_pixel);
 				}
 					
 			}
@@ -175,7 +175,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R); //aire totale de chaque zone
 	points[i]=0; //nombre de points corrects
 	erreurs[i]=0;	//nombre d'erreurs
-	chhrono[i]=0;
+	chrono[i]=0;
 	}
 	
 	
@@ -198,7 +198,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 void restart(tabpoint& t1, tabpoint& t2, int& k, time_t temps_debut, ligne& l1, ligne& l2, time_t* temps_simul, int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
-	time(&chrono);
+	time(&temps_debut);
 	t1.reset();
 	t2.reset();
 	aire=0;
