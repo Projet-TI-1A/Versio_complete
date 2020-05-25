@@ -30,7 +30,7 @@ void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& wind
 		pointstot+=points[i];
 		}
 	
-	n[0]=100*abs(float(pointstot-erreurstot)/float(pointstot+pointstot));
+	n[0]=100*abs(float(pointstot-erreurstot)/float(pointstot+erreurstot));
 	
 	// Conversion de l'entier
 	char nb[4], tps[4];
