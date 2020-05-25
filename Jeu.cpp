@@ -34,6 +34,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		time(&temps_debut_zone);
 		Event event;
 		
+		//tracé de la tumeur et des lignes definissant la zone à dissequer
 		window.clear();
 		window.draw(sprite);
 		Grand_cercle(window);
