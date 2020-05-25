@@ -23,8 +23,8 @@ void Retour(RenderWindow&, int&, int, int);
 bool Button(RenderWindow&, int, int, int,int);
 void Champtxt(Event&, string&);
 void reglage(RenderWindow&, Font, int&);
-void Defaut(String&, String&, String&, String&);
-void Enregistrer(String&, String&, String&, String&);
+void Defaut(string&, string&, string&, string&, string&);
+void Enregistrer(string&, string&, string&, string&, string&);
 void Verif(int&, int&, int&, int&, int&);
 bool recherche(string&,string&,string&);
 

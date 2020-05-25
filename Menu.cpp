@@ -10,7 +10,7 @@ using namespace std;
 
 void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ind)
 {
-	int ecran=1;
+	int ecran=0;
 	
 	Font font;
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
@@ -269,14 +269,7 @@ void menuprenom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text
 			
 			if (event.type == sf::Event::TextEntered)
 			{
-				if (event.text.unicode==8)
-				{
-					Prenom.erase(Prenom.size()-1,1);
-				}
-				else
-				{
-					Prenom+=event.text.unicode;
-				}
+				Champtxt(event, Prenom);
 			}
 		}
 	
@@ -362,14 +355,7 @@ void menuprenom2(RenderWindow& window, Text& text, Text& text2, Text& text3, Tex
 			
 			if (event.type == sf::Event::TextEntered)
 			{
-				if (event.text.unicode==8)
-				{
-					Prenom.erase(Prenom.size()-1,1);
-				}
-				else
-				{
-					Prenom+=event.text.unicode;
-				}
+				Champtxt(event, Prenom);
 			}
 		}
 	
@@ -459,14 +445,7 @@ void menunom(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& t
 			
 			if (event.type == sf::Event::TextEntered)
 			{
-				if (event.text.unicode==8)
-				{
-					Nom.erase(Nom.size()-1,1);
-				}
-				else
-				{
-					Nom+=event.text.unicode;
-				}
+				Champtxt(event, Nom);
 			}
 		}
 	
@@ -550,14 +529,7 @@ void menu3(RenderWindow& window, Text& text, Text& text2, Text& text3, Text& tex
 			
 			if (event.type == sf::Event::TextEntered)
 			{
-				if (event.text.unicode==8)
-				{
-					Age.erase(Age.size()-1,1);
-				}
-				else
-				{
-					Age+=event.text.unicode;
-				}
+				Champtxt(event, Age);
 			}
 		}
 	
@@ -850,11 +822,14 @@ bool Button(RenderWindow& window, int coordx, int coordy, int taillex,int taille
 
 /******************************************************************************/
 
-void Champtxt(Event& event, String& string)
+void Champtxt(Event& event, string& string)
 {
 	if (event.text.unicode==8)
 	{
-		string.erase(string.getSize()-1,1);
+		if (string.size() != 0)
+		{
+			string.erase(string.size()-1,1);
+		}
 	}
 	else
 	{
@@ -867,111 +842,131 @@ void Champtxt(Event& event, String& string)
 void reglage(RenderWindow& window, Font font,int& ecran)
 {
 	int var=-1;
-	
-	String Nbzones, R, Condition80, Condition95;
-	
+	ifstream Para("PARAMETRE.txt");
+	string Nbzones, R, Condition80, Condition95, temps;
+	if (Para)
+	{
+		Para >> Nbzones >> R >> Condition80 >> Condition95 >> temps;
+	}
+	Para.close();
 	Event event;
 	
-	Text text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12;
+	Text text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14;
 	
 	text.setFont(font);
-	text.setCharacterSize(15);
+	text.setCharacterSize(24);
 	text.setFillColor(Color::White);
-	text.setString(L"Appuyer sur le rectangle blanc correspondant au\nparamètre à changer, puis taper au clavier.");
+	text.setString(L"Appuyer sur le rectangle blanc correspondant au paramètre à changer,\npuis taper au clavier.");
 	
 	text2.setFont(font);
-	text2.setCharacterSize(15);
+	text2.setCharacterSize(24);
 	text2.setFillColor(Color::White);
 	text2.setString(L"Nombre de zones :");
-	text2.setPosition(20,50);
+	text2.setPosition(20,90);
 	
 	text3.setFont(font);
-	text3.setCharacterSize(15);
+	text3.setCharacterSize(24);
 	text3.setFillColor(Color::White);
 	text3.setString(L"Taille du pixel de\ncoloriage :");
-	text3.setPosition(20,130);
+	text3.setPosition(20,180);
 	
 	text4.setFont(font);
-	text4.setCharacterSize(15);
+	text4.setCharacterSize(24);
 	text4.setFillColor(Color::White);
 	text4.setString(L"% de la zone\ndevant être coloriée\navant de passer à\nla zone suivante :");
-	text4.setPosition(280,50);
+	text4.setPosition(300,90);
 	
 	text5.setFont(font);
-	text5.setCharacterSize(15);
+	text5.setCharacterSize(24);
 	text5.setFillColor(Color::White);
 	text5.setString(L"% de la zone\ndevant être coloriée\navant d'afficher\nles pixels restants:");
-	text5.setPosition(280,190);
+	text5.setPosition(300,280);
 	
 	text6.setFont(font);
-	text6.setCharacterSize(20);
+	text6.setCharacterSize(24);
 	text6.setFillColor(Color::Black);
 	text6.setString(L"Annuler");
-	text6.setPosition(30,233);
+	text6.setPosition(625,335);
 	
 	text7.setFont(font);
-	text7.setCharacterSize(20);
+	text7.setCharacterSize(24);
 	text7.setFillColor(Color::Black);
 	text7.setString(L"Enregistrer");
-	text7.setPosition(132,233);
+	text7.setPosition(610,410);
 	
 	text8.setFont(font);
-	text8.setCharacterSize(20);
+	text8.setCharacterSize(24);
 	text8.setFillColor(Color::Black);
 	text8.setString(L"Par défaut");
-	text8.setPosition(25,273);
+	text8.setPosition(620,260);
 	
 	text9.setFont(font);
-	text9.setCharacterSize(20);
+	text9.setCharacterSize(24);
 	text9.setFillColor(Color::Red);
 	text9.setString(Nbzones);
-	text9.setPosition(70,80);
+	text9.setPosition(70,140);
 	
 	text10.setFont(font);
-	text10.setCharacterSize(20);
+	text10.setCharacterSize(24);
 	text10.setFillColor(Color::Red);
 	text10.setString(R);
-	text10.setPosition(70,180);
+	text10.setPosition(70,270);
 	
 	text11.setFont(font);
-	text11.setCharacterSize(20);
+	text11.setCharacterSize(24);
 	text11.setFillColor(Color::Red);
 	text11.setString(Condition95);
-	text11.setPosition(330,140);
+	text11.setPosition(360,220);
 	
 	text12.setFont(font);
-	text12.setCharacterSize(20);
+	text12.setCharacterSize(24);
 	text12.setFillColor(Color::Red);
 	text12.setString(Condition95);
-	text12.setPosition(330,280);
+	text12.setPosition(360,410);
+	
+	text13.setFont(font);
+	text13.setCharacterSize(24);
+	text13.setString("Limite de temps\n(en s)");
+	text13.setFillColor(Color::White);
+	text13.setPosition(20,330);
+	
+	text14.setFont(font);
+	text14.setCharacterSize(24);
+	text14.setFillColor(Color::Red);
+	text14.setString(Condition95);
+	text14.setPosition(70,410);
 	
 	RectangleShape rectangle(Vector2f(50,40));
-	rectangle.setPosition(60,70);
+	rectangle.setPosition(60,130);
 	rectangle.setFillColor(Color::White);
 	
 	RectangleShape rectangle2(Vector2f(50,40));
-	rectangle2.setPosition(60,170);
+	rectangle2.setPosition(60,260);
 	rectangle2.setFillColor(Color::White);
 	
 	RectangleShape rectangle3(Vector2f(50,40));
-	rectangle3.setPosition(290+30,130);
+	rectangle3.setPosition(350,210);
 	rectangle3.setFillColor(Color::White);
 	
 	RectangleShape rectangle4(Vector2f(50,40));
-	rectangle4.setPosition(290+30,270);
+	rectangle4.setPosition(350,400);
 	rectangle4.setFillColor(Color::White);
 	
-	RectangleShape rectangle5(Vector2f(100,30));
-	rectangle5.setPosition(20, 230);
+	RectangleShape rectangle5(Vector2f(150,50));
+	rectangle5.setPosition(600, 325);
 	rectangle5.setFillColor(Color::White);
 	
-	RectangleShape rectangle6(Vector2f(100,30));
-	rectangle6.setPosition(20, 270);
+	RectangleShape rectangle6(Vector2f(150,50));
+	rectangle6.setPosition(600, 250);
 	rectangle6.setFillColor(Color::White);
 	
-	RectangleShape rectangle7(Vector2f(105,30));
-	rectangle7.setPosition(130, 230);
-	rectangle7.setFillColor(Color::White);
+	RectangleShape Enr(Vector2f(150,50));
+	Enr.setPosition(600, 400);
+	Enr.setFillColor(Color::White);
+	
+	RectangleShape time(Vector2f(70,40));
+	time.setPosition(60, 400);
+	time.setFillColor(Color::White);
 	
 	while (ecran==15)
 	{
@@ -981,41 +976,46 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					if (Button(window, 20, 230, 100, 30))
+					if (Button(window, 600, 325, 150, 50))
 					{
 						ecran=0;
 					}
 					
-					if (Button(window, 60, 70, 50, 40))
+					if (Button(window, 60, 130, 50, 40))
 					{
 						var=1;
 					}
 					
-					if (Button(window, 60, 170, 50, 40))
+					if (Button(window, 60, 260, 50, 40))
 					{
 						var=2;
 					}
 					
-					if (Button(window, 320, 130, 50, 40))
+					if (Button(window, 350, 210, 50, 40))
 					{
 						var=3;
 					}
 					
-					if (Button(window, 320, 270, 50, 40))
+					if (Button(window, 350, 400, 50, 40))
 					{
 						var=4;
 					}
 					
-					if (Button(window, 20, 270, 100, 30))
+					if (Button(window, 60, 400, 70, 40))
 					{
-						Defaut(Nbzones, R, Condition80, Condition95);
-						Enregistrer(Nbzones, R, Condition80, Condition95);
+						var=5;
+					}
+					
+					if (Button(window, 600, 250, 150, 50))
+					{
+						Defaut(Nbzones, R, Condition80, Condition95, temps);
+						Enregistrer(Nbzones, R, Condition80, Condition95, temps);
 						ecran=0;
 					}
 					
-					if (Button(window, 130, 230, 105, 30))
+					if (Button(window, 600, 400, 150, 50))
 					{
-						Enregistrer(Nbzones, R, Condition80, Condition95);
+						Enregistrer(Nbzones, R, Condition80, Condition95, temps);
 						ecran=0;
 					}
 				}
@@ -1040,6 +1040,10 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 					case 4:
 					Champtxt(event, Condition80);
 					break;
+					
+					case 5:
+					Champtxt(event, temps);
+					break;
 				}
 			}
 			
@@ -1056,6 +1060,7 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 	text10.setString(R);
 	text11.setString(Condition95);
 	text12.setString(Condition80);
+	text14.setString(temps);
 	
 	window.clear();
 	window.draw(rectangle);
@@ -1064,7 +1069,8 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 	window.draw(rectangle4);
 	window.draw(rectangle5);
 	window.draw(rectangle6);
-	window.draw(rectangle7);
+	window.draw(time);
+	window.draw(Enr);
 	window.draw(text);
 	window.draw(text2);
 	window.draw(text3);
@@ -1077,6 +1083,8 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 	window.draw(text10);
 	window.draw(text11);
 	window.draw(text12);
+	window.draw(text13);
+	window.draw(text14);
 	window.display();
 	
 	}
@@ -1084,24 +1092,24 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 
 
 /************************************************************************************/
-void Defaut(String& Nbzones, String& R, String& Condition80, String& Condition95)
+void Defaut(string& Nbzones, string& R, string& Condition80, string& Condition95, string& temps)
 {
 	Nbzones="5";
 	R="20";
 	Condition80="80";
 	Condition95="95";
+	temps="300";
 }
 
 /************************************************************************************/
 
-void Enregistrer(String& Nbzones, String& R, String& Condition80, String& Condition95)
+void Enregistrer(string& Nb, string& r, string& c80, string& c95, string& temps)
 {
 	ofstream Res("PARAMETRE.txt");
 	
-	string Nb=Nbzones, r=R, c80=Condition80, c95=Condition95;
 	if (Res)
 	{
-	Res << Nb << " " << r << " " << c80 << " " << c95 << endl;
+	Res << Nb << " " << r << " " << c80 << " " << c95 << temps << endl;
 	}
 }
 
