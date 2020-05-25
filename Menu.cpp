@@ -10,7 +10,7 @@ using namespace std;
 
 void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ind)
 {
-	int ecran=0;
+	int ecran=1;
 	
 	Font font;
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
