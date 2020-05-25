@@ -42,7 +42,7 @@ int main()
 	string Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
 	string temps;
 	string erreurstr[nbzonemax];
-	time_t temps_simul;
+	time_t temps_simul[nbzonemax];
 	int n[nbzonemax];
 	int ind=1;
 	int R, condition80, condition95, nbzone;
@@ -100,7 +100,9 @@ int main()
 			//remplissage des résultats et des incrémentations de test de la base de données
 			objet1.SQLcompteur(ind);
 			objet1.SQLrequete(ind);
-
+			
+			for(int i=0; i<nbzone;i++);
+				{temps=nbToStr[i](temps_simul[i]);}
 			
 			temps=nbToStr(temps_simul);
 			for(int i=0; i<nbzone;i++);
@@ -119,6 +121,6 @@ int main()
 		sleep(10);
 		
 	}
-	Envoi(Nom, Age, Formation, Niveau, temps_simul, n[0]);
+	Envoi(Nom, Age, Formation, Niveau, temps_simul[0], n[0]);
 	return 0;
 }
