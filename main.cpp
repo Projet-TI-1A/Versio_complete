@@ -120,6 +120,5 @@ int main()
 		sleep(10);
 		
 	}
-	Envoi(Nom, Age, Formation, Niveau, temps_simul[0], n[0]);
 	return 0;
 }
