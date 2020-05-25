@@ -82,7 +82,7 @@ int main()
 			airetotale= new int[nbzone];
 			/*****************/
 			
-			init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2, nbzone, R);
+			init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2,chrono, nbzone, R);
 			
 			/*********************************/
 			int **tab_pixel = new int* [E];
