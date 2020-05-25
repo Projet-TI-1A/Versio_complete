@@ -29,12 +29,11 @@ class SQLBASE { public :
      sqlite3_stmt *stmt;
      char *zErrMsg = 0;
      string prenom,nom,deuxprenom;
-     string compteur,compteur2;
+     string compteur;
      int rc;
      string sql;
      string truesql;
      string id;
-     int indic=0;
 
     public :
     void SQLinitialisation(string,string,string);
@@ -53,12 +52,12 @@ class SQLBASE { public :
 class SQLBASE2 {
    public :
       string age;
-      string formation,endoscope,niveau;
-      string temps,pourcentagerreur;
+      string formation,endoscope,niveau,date;
+      string temps,pourcentagerreur,etat;
       sqlite3 *db;
       sqlite3_stmt *stmt;
       char *zErrMsg = 0;
-      string tentative,tentative2;
+      string tentative;
       int rc;
       string sql;
       string truesql;
@@ -66,7 +65,7 @@ class SQLBASE2 {
    public :
       void SQLinitialisation2(string,string,string,string);
       //~SQLBASE();
-      void SQLrecupererResults(string,string);
+      void SQLrecupererResults(string,string,string);
       void SQLrecupererid(SQLBASE);
       void SQLrecupererCompteur(int,SQLBASE);
       void SQLrequete2();

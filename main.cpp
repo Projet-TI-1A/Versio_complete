@@ -44,7 +44,7 @@ int main()
 	string erreurstr[nbzonemax];
 	time_t temps_simul;
 	int n[nbzonemax];
-	int ind=2;
+	int ind=1;
 	int R, condition80, condition95, nbzone;
 
 	SQLBASE objet1;
@@ -106,7 +106,7 @@ int main()
 			for(int i=0; i<nbzone;i++);
 				{erreurstr[i]=nbToStr(n[i]);}
 
-			objet2.SQLrecupererResults(temps,erreurstr[0]);
+			objet2.SQLrecupererResults(temps,erreurstr[0],"fini");
 			objet2.SQLrecupererid(objet1);
 			objet2.SQLrecupererCompteur(ind,objet1);
 			objet2.SQLrequete2();

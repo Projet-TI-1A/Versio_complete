@@ -6,6 +6,10 @@
 #include <sstream>
 #include <string.h>
 
+#include <ctime>
+#include <string>
+#include <iomanip>
+
 #include "basededonnees.h"
 
 string nbToStr(int nombre)
@@ -42,10 +46,6 @@ static int callback(void *data, int argc, char **argv, char **azColName) {
 }
 
 
- /*
- Table SIMULATIONIDENTIFICATION
- valeur : NOM,PRENOM,DEUXPRENOM,
- MENUAVECPARAMETRES,MENUSANSPARAMETRES,ID*/
 
 
         
@@ -68,7 +68,6 @@ int SQLBASE::isExist(){
         
         if (id.empty()){
             booleen=0;
-            //SQLid();
         }
         
         
@@ -78,23 +77,7 @@ int SQLBASE::isExist(){
 
 
 
-/*string SQLBASE::SQLid(){
 
-    rc = sqlite3_open("chirurgie_endoluminale.db", &db);
-    sql = "SELECT COUNT(ID) FROM SIMULATIONIDENTIFICATION";
-    rc = sqlite3_prepare_v2( db,  sql.c_str(), -1, &stmt, NULL);
-
-    do {
-		rc = sqlite3_step( stmt);
-		if ( rc == SQLITE_ROW) {
-		    id=(char *)sqlite3_column_text( stmt,0);
-		    }
-	    } while ( rc == SQLITE_ROW);
-        plusun(id);
-    
-        sqlite3_close( db);
-        return id;
-    }*/
 
 
 
@@ -114,7 +97,7 @@ void SQLBASE::SQLinitialisation(string prenomprojet, string nomprojet, string de
 string SQLBASE::SQLcompteur(int menu){
             rc = sqlite3_open("chirurgie_endoluminale.db", &db);
             
-                sql = "SELECT MENUAVECPARAMETRES FROM SIMULATIONIDENTIFICATION WHERE ID="+id;
+                sql = "SELECT TENTATIVE FROM SIMULATIONIDENTIFICATION WHERE ID="+id;
                 rc = sqlite3_prepare_v2( db,  sql.c_str(), -1, &stmt, NULL);
 
                 do {
@@ -125,21 +108,10 @@ string SQLBASE::SQLcompteur(int menu){
                     }  
                 } while ( rc == SQLITE_ROW);
 
-                sql = "SELECT MENUSANSPARAMETRES FROM SIMULATIONIDENTIFICATION WHERE ID="+id;
-                rc = sqlite3_prepare_v2( db,  sql.c_str(), -1, &stmt, NULL);
-
-                do {
-                    rc = sqlite3_step( stmt);
-                    if ( rc == SQLITE_ROW) { //can read data
-                        compteur2=(char *)sqlite3_column_text( stmt,0);
-
-                    } 
-                } while ( rc == SQLITE_ROW);
+                
 
             if (menu==1){
-                if (compteur2.empty()){
-                    compteur2="0";
-                }
+                
                 if (compteur.empty()){ compteur="0";}
                 plusun(compteur);
 
@@ -148,15 +120,8 @@ string SQLBASE::SQLcompteur(int menu){
             }
             
             
-            if (menu==2){
-                if (compteur.empty()){
-                    compteur="0";
-                }
-                
-                plusun(compteur2);
-                 sqlite3_close( db);
-                return compteur2;
-            }
+            
+            
            
            
         
@@ -169,25 +134,21 @@ string SQLBASE::getcompteur(int menu){
     if (menu==1){
         return compteur;
     }
-    if (menu==2){
-        return compteur2;
-    }
+    
     
 }
 void SQLBASE::SQLrequete(int menu){
 
-    truesql="INSERT INTO SIMULATIONIDENTIFICATION(NOM,PRENOM,DEUXPRENOM,MENUAVECPARAMETRES,MENUSANSPARAMETRES) VALUES('";
+    truesql="INSERT INTO SIMULATIONIDENTIFICATION(NOM,PRENOM,DEUXPRENOM,TENTATIVES) VALUES('";
     rc = sqlite3_open("chirurgie_endoluminale.db", &db);
     if (isExist()){
         if (menu==1){
-            sql="UPDATE SIMULATIONIDENTIFICATION SET MENUAVECPARAMETRES="+compteur+" WHERE ID="+id+";";
+            sql="UPDATE SIMULATIONIDENTIFICATION SET TENTATIVE="+compteur+" WHERE ID="+id+";";
         }
-        if (menu==2){
-            sql="UPDATE SIMULATIONIDENTIFICATION SET MENUSANSPARAMETRES="+compteur2+" WHERE ID="+id+";";
-        }
+        
     }
     else {
-        sql=truesql+nom+"','"+prenom+"','"+deuxprenom+"',"+compteur+","+compteur2+");";
+        sql=truesql+nom+"','"+prenom+"','"+deuxprenom+"',"+compteur+");";
     }
     
     
@@ -212,13 +173,25 @@ void SQLBASE2::SQLinitialisation2( string ageprojet,string formationprojet, stri
             formation=formationprojet;
             niveau=niveauprojet;
             endoscope=endoscopeprojet;
-           
+
+            string annee,mois,jour;
+            struct tm Today;
+            time_t maintenant; 
+            time(&maintenant); 
+            Today = *localtime(&maintenant); 
+            annee=nbToStr(Today.tm_year+1900);
+            mois=nbToStr(Today.tm_mon+1);
+            jour=nbToStr(Today.tm_mday);
+            date=annee+"/"+mois+"/"+jour;
+             cout << date;
+            
 
         }
 
-void SQLBASE2::SQLrecupererResults(string tempsprojet, string pourcentagerreurprojet){
+void SQLBASE2::SQLrecupererResults(string tempsprojet, string pourcentagerreurprojet, string etatprojet){
           temps=tempsprojet;
           pourcentagerreur=pourcentagerreurprojet;
+          etat=etatprojet;
 }
 
 void SQLBASE2::SQLrecupererid(SQLBASE objet){
@@ -231,20 +204,17 @@ void SQLBASE2::SQLrecupererid(SQLBASE objet){
 void SQLBASE2::SQLrecupererCompteur(int menu, SQLBASE objet){
     if (menu==1){
         tentative=objet.getcompteur(menu);
-        tentative2="0";
+        
     }
-    if (menu==2){
-        tentative="0";
-        tentative2=objet.getcompteur(menu);
-    }
+    
 }
 
 void SQLBASE2::SQLrequete2(){
 
-    truesql="INSERT INTO SIMULATIONDONNEES(ID,AGE,FORMATION,NIVEAU,ENDOSCOPE,TEMPS,POURCENTAGEERREUR,TENTATIVEAVECPARAMETRES,TENTATIVESANSPARAMETRES) VALUES(";
+    truesql="INSERT INTO SIMULATIONDONNEES(ID,AGE,FORMATION,NIVEAU,ENDOSCOPE,TEMPS,POURCENTAGEERREUR,NUMEROTENTATIVE,DATE,ETAT) VALUES(";
     rc = sqlite3_open("chirurgie_endoluminale.db", &db);
 
-    sql=truesql+id+","+age+",'"+formation+"','"+niveau+"','"+endoscope+"',"+temps+","+pourcentagerreur+","+tentative+","+tentative2+");";
+    sql=truesql+id+","+age+",'"+formation+"','"+niveau+"','"+endoscope+"',"+temps+","+pourcentagerreur+","+tentative+",'"+date+"','"+etat+"'"+");";
     
     
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
@@ -262,7 +232,7 @@ void SQLBASE2::SQLrequete2(){
 
 
 
-        int main(){
+      /*  int main(){
         string Prenom="Guigui", Nom="Deschamps", Prenom2="Remi", age="21", formation="ÉTUDIANTE", niveau="Novice", endoscope="MANUEL";
         
         SQLBASE objet;
@@ -278,7 +248,7 @@ void SQLBASE2::SQLrequete2(){
 
 
         }
-
+*/
 
 
 //creer string nom prenom deuxprenom

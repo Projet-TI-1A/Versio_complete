@@ -4,6 +4,10 @@
 #include <fstream>
 #include <string.h>
 #include <iostream>
+#include <ctime>
+#include <sstream>
+#include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -16,12 +20,19 @@ static int callback(void *NotUsed, int argc, char **argv, char **azColName) {
    return 0;
 }
 
+string nbToStr(int nombre)
+{
+    ostringstream a;
+    a << nombre;
+    return a.str();
+}
+
+	
 int main(int argc, char* argv[]) {
    sqlite3 *db;
    char *zErrMsg = 0;
    int rc;
    char *sql;
-
    
  
    
@@ -39,18 +50,19 @@ int main(int argc, char* argv[]) {
 
 
    //table DB1
- //sql = "CREATE TABLE SIMULATIONIDENTIFICATION( id INTEGER PRIMARY KEY,NOM TEXT NOT NULL, PRENOM TEXT NOT NULL,DEUXPRENOM TEXT NOT NULL,MENUAVECPARAMETRES INT NOT NULL,MENUSANSPARAMETRES    INT     NOT NULL);";
+ //sql = "CREATE TABLE SIMULATIONIDENTIFICATION( id INTEGER PRIMARY KEY,NOM TEXT NOT NULL, PRENOM TEXT NOT NULL,DEUXPRENOM TEXT NOT NULL, TENTATIVES INT NOT NULL);";
 
    //table DB2
- //sql = "CREATE TABLE SIMULATIONDONNEES(id INT NOT NULL,AGE INT NOT NULL,FORMATION TEXT NOT NULL,NIVEAU TEXT NOT NULL,ENDOSCOPE TEXT NOT NULL,TEMPS INT NOT NULL,POURCENTAGEERREUR INT NOT NULL,TENTATIVEAVECPARAMETRES INT NOT NULL,TENTATIVESANSPARAMETRES INT NOT NULL);";
+ //sql = "CREATE TABLE SIMULATIONDONNEES(id INT NOT NULL,AGE INT NOT NULL,FORMATION TEXT NOT NULL,NIVEAU TEXT NOT NULL,ENDOSCOPE TEXT NOT NULL,TEMPS INT NOT NULL,POURCENTAGEERREUR INT NOT NULL, NUMEROTENTATIVE INT NOT NULL, DATE TEXT NOT NULL, ETAT TEXT NOT NULL);";
 
+   //table DB3
+ //sql = "CREATE TABLE ADMINISTRATEUR(NOM TEXT NOT NULL, PRENOM TEXT NOT NULL,DEUXPRENOM TEXT NOT NULL);";
+  // sql="DROP TABLE SIMULATIONDONNEES;";
 
- //sql="DROP TABLE SIMULATIONIDENTIFICATION;";
+// sql="SELECT * FROM SIMULATIONIDENTIFICATION;";
+ sql="SELECT * FROM SIMULATIONDONNEES;";
 
- sql="SELECT * FROM SIMULATIONIDENTIFICATION;";
- //sql="SELECT * FROM SIMULATIONDONNEES;";
-
- //sql="DELETE FROM SIMULATIONIDENTIFICATION";
+ //sql="DELETE FROM SIMULATIONDONNEES";
    /* Execute SQL statement */
    rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
    
@@ -61,5 +73,10 @@ int main(int argc, char* argv[]) {
       fprintf(stdout, "creation successfully\n");
    }
    sqlite3_close(db);
+
+          
+
+         
+
    return 0;
 }
