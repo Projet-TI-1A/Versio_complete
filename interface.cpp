@@ -7,15 +7,15 @@
 using namespace std;
 using namespace sf;
 
+/***************Ce fichier contient les fontions qui constituent l'interface et l'affichage à l'écran**********************/
 
 
-/********************************************************************************/
-
+//tracer un cercle (symbolisant la tumeur)
 void Grand_cercle(RenderWindow& window)/*Permet de trace le cercle représentant la tumeur*/
 {
 	CircleShape shape(150);
 	shape.setFillColor(Color(255,214,246,150));
-	shape.setOutlineThickness(20);
+	shape.setOutlineThickness(20); //contour pour creer une marge d'erreur
 	shape.setOutlineColor(sf::Color(253,108,158));
 	shape.setPosition(100,20);
 	window.draw(shape);
@@ -62,7 +62,7 @@ void Dessine_point(point p, RenderWindow& window, int R)/*Dessine un point de ta
 /*******************************************************************************/
 /**dessine les pixels restants en verts pour mieux les reperer**/
 
-void Dessine_restant(int k,int l,int e, int r,int R, int xcentre, int **tab_pixel,RenderWindow& window)
+/*void Dessine_restant(int k,int l,int e, int r,int R, int xcentre, int **tab_pixel,RenderWindow& window)
 {
 	int x, y;
 	for (int i=0;i<e;i++)
@@ -80,7 +80,7 @@ void Dessine_restant(int k,int l,int e, int r,int R, int xcentre, int **tab_pixe
 				}
 			}
 		}
-}
+}*/
 
 
 void Dessine_restant(int k,int i, int y, int e, int r,int R, int xcentre, RenderWindow& window)
@@ -94,6 +94,7 @@ void Dessine_restant(int k,int i, int y, int e, int r,int R, int xcentre, Render
 }
 
 /*******************************************************************************/
+//ajoute les pixels situés dans le curseur autour du point touché dans les tableaux
 void Dessine_plus_points(tabpoint tab,tabpoint erreur, RenderWindow& window,int cote)
 {
 	point p1;
