@@ -29,8 +29,9 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 {
 		//initialisation des variables
 		int H,m=0;
-		time_t temps_debut;
+		time_t temps_debut, temps_debut_zone; 
 		time(&temps_debut); 
+		time(&temps_debut_zone);
 		Event event;
 		
 		window.clear();
@@ -89,6 +90,10 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						for (int i = 0; i < e; i++)
 						for(int j = 0; j < L; j++)
 								{tab_pixel[i][j]=0;}
+						//reinitialisation du chrono
+						chrono[k]=chronosimul(temps_debut_zone);
+						time(&temps_debut_zone);
+						
 						//déplacement des lignes délimitant la zone
 						ligneX= xcentre +r-(k+1)*e;
 						l1.set(xcentre+r-(k+1)*e, ligneY);
@@ -144,7 +149,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 	
 	}
 	//si on a completé toutes les zones, on arrete le chrono et on passe au mode suivant
-	if (k>=nbzone) {  chrono=chronosimul(temps_debut); gamemode=2;}	
+	if (k>=nbzone) {  chrono[0]=chronosimul(temps_debut); gamemode=2;}	
 }
 
 
@@ -152,7 +157,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 
 //Initialisation des variables necessaires pour la simulation
 
-void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2, int nbzone, int& R)
+void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2,time_t* chrono int nbzone, int& R)
 
 {
 	k=0;//indice de la zone dans laquelle on se trouve
@@ -170,6 +175,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R); //aire totale de chaque zone
 	points[i]=0; //nombre de points corrects
 	erreurs[i]=0;	//nombre d'erreurs
+	chhrono[i]=0
 	}
 	
 	
