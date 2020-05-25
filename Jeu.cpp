@@ -140,7 +140,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				//on recommence la simulation
 				if(event.key.code == Keyboard::Comma)
 				{
-					restart(tab_point, tab_erreur,k,temps_debut,l1, l2,aire,e,ligneX,ligneY,tab_pixel);
+					restart(tab_point, tab_erreur,k,temps_debut,l1, l2, tempsimul,aire,e,ligneX,ligneY,tab_pixel);
 				}
 					
 			}
@@ -157,7 +157,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 
 //Initialisation des variables necessaires pour la simulation
 
-void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2,time_t* chrono int nbzone, int& R)
+void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2,time_t* chrono, int nbzone, int& R)
 
 {
 	k=0;//indice de la zone dans laquelle on se trouve
@@ -175,7 +175,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R); //aire totale de chaque zone
 	points[i]=0; //nombre de points corrects
 	erreurs[i]=0;	//nombre d'erreurs
-	chhrono[i]=0
+	chhrono[i]=0;
 	}
 	
 	
@@ -195,7 +195,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 
 //fonction permettant de recomencer la simulation
 
-void restart(tabpoint& t1, tabpoint& t2, int& k, time_t* chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
+void restart(tabpoint& t1, tabpoint& t2, int& k, time_t temps_debut, ligne& l1, ligne& l2, time_t* temps_simul, int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
 	time(&chrono);
@@ -206,7 +206,8 @@ void restart(tabpoint& t1, tabpoint& t2, int& k, time_t* chrono, ligne& l1, lign
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
 	for (int i = 0; i < e; i++)
 		{ for(int j = 0; j < L; j++)
-			{tab_pixel[i][j]=0;}
+			{tab_pixel[i][j]=0;
+			temps_simul[i]=0;}
 		}
 }
 
