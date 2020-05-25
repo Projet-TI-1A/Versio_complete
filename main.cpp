@@ -45,7 +45,7 @@ int main()
 	time_t temps_simul[nbzonemax];
 	int n[nbzonemax];
 	int ind=1;
-	int R, condition80, condition95, nbzone;
+	int R, condition80, condition95, nbzone,/*a ajouter pour le tempsmax*/ tempsmax;
 
 	SQLBASE objet1;
 	SQLBASE2 objet2;
@@ -76,7 +76,7 @@ int main()
 		{
 			//on initialise les variables liées a la parties simulation
 			
-			Initpara(nbzone, R, condition80, condition95);
+			Initpara(nbzone, R, condition80, condition95,/*a ajouter pour le tempsmax*/ tempsmax);
 			
 			/******************/
 			airetotale= new int[nbzone];
