@@ -25,7 +25,7 @@ using namespace sf;
 
 //simulation de la dissection
 
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono, int R, int condition80, int condition95, int nbzone)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t* chrono, int R, int condition80, int condition95, int nbzone)
 {
 		//initialisation des variables
 		int H,m=0;
@@ -195,7 +195,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 
 //fonction permettant de recomencer la simulation
 
-void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
+void restart(tabpoint& t1, tabpoint& t2, int& k, time_t* chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
 	time(&chrono);
