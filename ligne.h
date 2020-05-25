@@ -7,6 +7,8 @@
 using namespace sf;
 using namespace std;
 
+/***************************classe ligne*******************************/
+
 class ligne : public point
 {
 	public :
