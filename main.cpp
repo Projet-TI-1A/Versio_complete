@@ -82,7 +82,7 @@ int main()
 			airetotale= new int[nbzone];
 			/*****************/
 			
-			init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2,chrono, nbzone, R);
+			init_jeu( window, x, y, E, k, Dessin, e, ligneX, ligneY, airetotale, aire, points, erreurs, background, sprite, l1, l2,temps_simul, nbzone, R);
 			
 			/*********************************/
 			int **tab_pixel = new int* [E];
@@ -100,12 +100,7 @@ int main()
 			//remplissage des résultats et des incrémentations de test de la base de données
 			objet1.SQLcompteur(ind);
 			objet1.SQLrequete(ind);
-			
-			for(int i=0; i<nbzone;i++);
-				{temps=nbToStr[i](temps_simul[i]);}
-			
-			for(int i=0; i<nbzone;i++);
-				{erreurstr[i]=nbToStr(n[i]);}
+		
 
 			objet2.SQLrecupererResults(temps,erreurstr[0],"fini");
 			objet2.SQLrecupererid(objet1);
