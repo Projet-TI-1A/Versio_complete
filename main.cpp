@@ -53,7 +53,7 @@ int main()
 	
 	
 	//on crée la fenetre
-	RenderWindow window(VideoMode(480,320), "SFML works!"/*,Style::Fullscreen*/);
+	RenderWindow window(VideoMode(L,l), "SFML works!"/*,Style::Fullscreen*/);
 	
 	//Boucle principale
 	int i=0;
