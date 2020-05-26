@@ -44,8 +44,9 @@ int main()
 	string erreurstr[nbzonemax];
 	time_t temps_simul[nbzonemax];
 	int n[nbzonemax];
-	int ind=1;
+	int ind=1, ecran=1, fin=1;
 	int R, condition80, condition95, nbzone,/*a ajouter pour le tempsmax*/ tempsmax;
+	string etat;
 
 	SQLBASE objet1;
 	SQLBASE2 objet2;
@@ -61,11 +62,13 @@ int main()
 	{
 	
 		window.clear();
-		
+		while(gamemode<10)
+		{
 		//selon la valeur de gamemode, on change de phase de jeu
 		if (gamemode==0)
 		{
-			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ind);
+			menu(window, Prenom, Prenom2, Nom, Age, Formation, Niveau, Endoscope, gamemode, ind, ecran);
+			fin=1;
 			
 			
 			//initialisation de la base de données
@@ -89,13 +92,17 @@ int main()
 			for (int i = 0; i < E; i++)
 			{tab_pixel[i] = new int[L];}
 			/*********************************/
-			
+			etat="Reussi";
 			simulation(window,x,y,E,k,Dessin,e,ligneX,ligneY, airetotale, aire, points, erreurs, tab_point, tab_erreur, tab_pixel, background, sprite, p1, l1, l2, gamemode, temps_simul, R, condition80, condition95, nbzone);
 		}
 		
 		 if (gamemode==2)	
 		{
+			 if(fin==1)
+			 {
 			affichage_fin(window, nbzone, gamemode, erreurs, points, n, temps_simul);
+			sleep(10);
+			 }
 
 			//remplissage des résultats et des incrémentations de test de la base de données
 			objet1.SQLcompteur(ind);
@@ -112,13 +119,15 @@ int main()
 			objet2.SQLrecupererid(objet1);
 			objet2.SQLrecupererCompteur(ind,objet1);
 			objet2.SQLrequete2();
+			 
+			 menufin(window, gamemode, ecran);
 		}
 		
 		if (gamemode==10)
 		{return 0;}
-		
+	}
 		window.display();
-		sleep(10);
+		
 		
 	}
 	return 0;
