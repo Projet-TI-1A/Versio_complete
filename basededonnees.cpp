@@ -97,7 +97,7 @@ void SQLBASE::SQLinitialisation(string prenomprojet, string nomprojet, string de
 string SQLBASE::SQLcompteur(int menu){
             rc = sqlite3_open("chirurgie_endoluminale.db", &db);
             
-                sql = "SELECT TENTATIVE FROM SIMULATIONIDENTIFICATION WHERE ID="+id;
+                sql = "SELECT TENTATIVES FROM SIMULATIONIDENTIFICATION WHERE ID="+id;
                 rc = sqlite3_prepare_v2( db,  sql.c_str(), -1, &stmt, NULL);
 
                 do {
@@ -143,7 +143,7 @@ void SQLBASE::SQLrequete(int menu){
     rc = sqlite3_open("chirurgie_endoluminale.db", &db);
     if (isExist()){
         if (menu==1){
-            sql="UPDATE SIMULATIONIDENTIFICATION SET TENTATIVE="+compteur+" WHERE ID="+id+";";
+            sql="UPDATE SIMULATIONIDENTIFICATION SET TENTATIVES="+compteur+" WHERE ID="+id+";";
         }
         
     }
@@ -183,7 +183,7 @@ void SQLBASE2::SQLinitialisation2( string ageprojet,string formationprojet, stri
             mois=nbToStr(Today.tm_mon+1);
             jour=nbToStr(Today.tm_mday);
             date=annee+"/"+mois+"/"+jour;
-             cout << date;
+       
             
 
         }
@@ -214,16 +214,16 @@ void SQLBASE2::SQLrequete2(){
     truesql="INSERT INTO SIMULATIONDONNEES(ID,AGE,FORMATION,NIVEAU,ENDOSCOPE,TEMPS,POURCENTAGEERREUR,NUMEROTENTATIVE,DATE,ETAT) VALUES(";
     rc = sqlite3_open("chirurgie_endoluminale.db", &db);
 
-    sql=truesql+id+","+age+",'"+formation+"','"+niveau+"','"+endoscope+"',"+temps+","+pourcentagerreur+","+tentative+",'"+date+"','"+etat+"'"+");";
+    sql=truesql+id+","+age+",'"+formation+"','"+niveau+"','"+endoscope+"',"+temps+",'"+pourcentagerreur+"',"+tentative+",'"+date+"','"+etat+"');";
     
     
     rc = sqlite3_exec(db, sql.c_str(), callback, 0, &zErrMsg);
    
     if( rc != SQLITE_OK ){
-      fprintf(stderr, "SQL error: %s\n", zErrMsg);
+      fprintf(stderr, "SQL error 2: %s\n", zErrMsg);
       sqlite3_free(zErrMsg);
    } else {
-      fprintf(stdout, "requete done successfully\n");
+      fprintf(stdout, "requete done \n");
    }
    sqlite3_close(db);
 }

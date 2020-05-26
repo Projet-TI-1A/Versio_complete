@@ -40,7 +40,7 @@ int main()
 	point p1;
 	ligne l1(0,0), l2(0,0);
 	string Nom, Age, Formation, Niveau, Prenom, Prenom2, Endoscope;
-	string temps;
+	string temps[nbzonemax], pixelsbons[nbzonemax];
 	string erreurstr[nbzonemax];
 	time_t temps_simul[nbzonemax];
 	int n[nbzonemax];
@@ -69,7 +69,7 @@ int main()
 			
 			
 			//initialisation de la base de données
-			objet1.SQLinitialisation(Nom,Prenom,Prenom2);
+			objet1.SQLinitialisation(Prenom,Nom,Prenom2);
 			objet2.SQLinitialisation2(Age,Formation,Niveau,Endoscope);
 		}
 		if (gamemode==1)	
@@ -100,9 +100,15 @@ int main()
 			//remplissage des résultats et des incrémentations de test de la base de données
 			objet1.SQLcompteur(ind);
 			objet1.SQLrequete(ind);
-		
 
-			objet2.SQLrecupererResults(temps,erreurstr[0],"fini");
+			
+			for (int i=0; i<nbzone ; i++)
+			{temps[i]= nbToStr(temps_simul[i]);
+			  erreurstr[i]=nbToStr(erreurs[i]); 
+			  pixelsbons[i]=nbToStr(n[i]);
+			  }
+
+			objet2.SQLrecupererResults("300",pixelsbons[0],"TIMEOUT");
 			objet2.SQLrecupererid(objet1);
 			objet2.SQLrecupererCompteur(ind,objet1);
 			objet2.SQLrequete2();
