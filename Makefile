@@ -5,7 +5,7 @@ EXEC=Test_V1
 
 all: $(EXEC)
 
-Test_V1: main.o interface.o toucher.o zone.o air.o ligne.o Jeu.o Menu.o resultat.o Fin.o basededonnees.o
+Test_V1: main.o interface.o toucher.o zone.o air.o ligne.o Jeu.o Menu.o resultat.o Fin.o basededonnees.o ExceptionPara.o
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
 main.o: interface.h toucher.h zone.h parametre.h ligne.h Jeu.h Menu.h resultat.h Fin.h basededonnees.h
@@ -36,7 +36,7 @@ Jeu.o: interface.h toucher.h zone.h parametre.h ligne.h Jeu.h
 %.o : %.c
 	$(CXX) -o $@ -c $< $(CFLAGS)
 
-Menu.o: Menu.h
+Menu.o: Menu.h ExceptionPara.h
 %.o : %.c
 	$(CXX) -o $@ -c $< $(CFLAGS)
 
@@ -51,3 +51,13 @@ Fin.o: Fin.h
 basededonnees.o: basededonnees.h
 %.o : %.c
 	$(CXX) -o $@ -c $< $(CFLAGS)
+
+ExceptionPara.o: ExceptionPara.h
+%.o : %.c
+	$(CXX) -o $@ -c $< $(CFLAGS)
+
+
+
+
+
+

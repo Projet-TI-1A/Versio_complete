@@ -3,6 +3,8 @@
 #include <fstream>
 #include "Menu.h"
 #include "toucher.h"
+#include "ExceptionPara.h"
+#include <sstream>
 
 using namespace sf;
 using namespace std;
@@ -1057,7 +1059,7 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 	Para.close();
 	Event event;
 	
-	Text text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14;
+	Text text, text2, text3, text4, text5, text6, text7, text8, text9, text10, text11, text12, text13, text14, Except;
 	
 	text.setFont(font);
 	text.setCharacterSize(24);
@@ -1142,6 +1144,13 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 	text14.setString(Condition95);
 	text14.setPosition(70,410);
 	
+	Except.setFont(font);
+	Except.setCharacterSize(24);
+	Except.setFillColor(Color::Red);
+	Except.setString(Condition95);
+	Except.setPosition(600,90);
+	Except.setString("");
+	
 	RectangleShape rectangle(Vector2f(50,40));
 	rectangle.setPosition(60,130);
 	rectangle.setFillColor(Color::White);
@@ -1214,15 +1223,33 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 					
 					if (Button(window, 600, 250, 150, 50))
 					{
-						Defaut(Nbzones, R, Condition80, Condition95, temps);
-						Enregistrer(Nbzones, R, Condition80, Condition95, temps);
 						ecran=0;
+						Defaut(Nbzones, R, Condition80, Condition95, temps);
+						try
+						{
+							Enregistrer(Nbzones, R, Condition80, Condition95, temps);
+						}
+						
+						catch (ExceptionPara& e)
+						{
+							Except.setString(e.message());
+							ecran=15;
+						}
 					}
 					
 					if (Button(window, 600, 400, 150, 50))
 					{
-						Enregistrer(Nbzones, R, Condition80, Condition95, temps);
 						ecran=0;
+						try
+						{
+							Enregistrer(Nbzones, R, Condition80, Condition95, temps);
+						}
+						
+						catch (ExceptionPara& e)
+						{
+							Except.setString(e.message());
+							ecran=15;
+						}
 					}
 				}
 			}
@@ -1291,6 +1318,7 @@ void reglage(RenderWindow& window, Font font,int& ecran)
 	window.draw(text12);
 	window.draw(text13);
 	window.draw(text14);
+	window.draw(Except);
 	window.display();
 	
 	}
@@ -1309,14 +1337,46 @@ void Defaut(string& Nbzones, string& R, string& Condition80, string& Condition95
 
 /************************************************************************************/
 
-void Enregistrer(string& Nb, string& r, string& c80, string& c95, string& temps)
+void Enregistrer(string& nb, string& r, string& c80, string& c95, string& temps)
 {
-	ofstream Res("PARAMETRE.txt");
+	stringstream ss;
+	int Nb, R, C80, C95, Temps;
 	
-	if (Res)
+	ss << nb << " " << r << " " << c80 << " " << c95 << " " << temps << endl;
+	ss >> Nb >> R >> C80 >> C95 >> Temps ;
+	
+	if (Nb<1 or Nb>8)
 	{
-	Res << Nb << " " << r << " " << c80 << " " << c95 << " " << temps << endl;
+		throw(ExceptionPara("Le nombre de\nzone doit\netre compris\nentre 1 et 8"));
 	}
+	
+	if (R<5 or R>30)
+	{
+		throw(ExceptionPara("La taille du\npixels doit\netre comprise\nentre 5 et 30"));
+	}
+	
+	if (C80<10 or C80>100 or C95<10 or C95>100)
+	{
+		throw(ExceptionPara("Le % de pixels\ncolories doit\netre entre\n10 et 100"));
+	}
+	
+	if (Temps<5)
+	{
+		throw(ExceptionPara("Le temps\nmaximal de la\nsimulation\ndoit etre au\nmoins de 5s"));
+	}
+	
+	else
+	{
+		ofstream Res("PARAMETRE.txt");
+		
+		if (Res)
+		{
+		Res << nb << " " << r << " " << c80 << " " << c95 << " " << temps << endl;
+		}
+		Res.close();
+	}
+	
+	
 }
 
 
