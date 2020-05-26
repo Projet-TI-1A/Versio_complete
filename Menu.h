@@ -18,6 +18,7 @@ void menu3(RenderWindow&, Text&, Text&, Text&, Text&, string&, int&);
 void menu4(RenderWindow&, Text&, Text&, Text&, Text&, Text&, string&, int&);
 void menu5(RenderWindow&, Text&, Text&, Text&, Text&, Text&, Text&, string&, int&);
 void menu6(RenderWindow&, Text&, Text&, Text&, Text&, Text&, string&, int&);
+void menu7(RenderWindow&, string&, string&, string&, string&, string&, string&, string&, int&);
 void Button(RenderWindow& window, string& text, int& ecran, string ,int,int,int,int);
 void Retour(RenderWindow&, int&, int, int);
 bool Button(RenderWindow&, int, int, int,int);
