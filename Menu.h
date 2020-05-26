@@ -9,7 +9,7 @@ using namespace std;
 using namespace sf;
 
 
-void menu(RenderWindow&, string&, string&, string&, string&, string&, string&, string&, int&, int&);
+void menu(RenderWindow&, string&, string&, string&, string&, string&, string&, string&, int&, int&, int&);
 void menu0(RenderWindow&, Text&, Text&, int&, string&, string&);
 void menuprenom(RenderWindow&, Text&, Text&, Text&, Text&, string&, int&);
 void menuprenom2(RenderWindow&, Text&, Text&, Text&, Text&, string&, int&);

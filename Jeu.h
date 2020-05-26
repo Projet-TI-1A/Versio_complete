@@ -12,18 +12,11 @@
 #ifndef JEU_H
 #define JEU_H
 
-/**************Ce fichier contient le coeur de la simulation: la dissection de la tumeur à travers les différentes zones**************/
+void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int* ,int& , int*, int*,Texture& ,Sprite& ,ligne& ,ligne& , int, int&);
 
-//simulation de la dissection
-void init_jeu(RenderWindow&, int& ,int& ,int& ,int& ,int& ,int& ,int& ,int& ,int* ,int& , int*, int*,Texture& ,Sprite& ,ligne& ,ligne& ,time_t*, int, int&);
+void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int*,int*, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&, time_t&, int, int, int, int, int, string&, int&);
 
-//Initialisation des variables necessaires pour la simulation
-void simulation(RenderWindow&, int&, int&, int&, int&, int&, int&, int&, int&, int*, int&, int*,int*, tabpoint&, tabpoint&, int**, Texture&, Sprite&, point&, ligne& , ligne& , int&, time_t*, int, int, int, int);
+void restart(tabpoint&, tabpoint&, int&, time_t, ligne&, ligne&,int&, int, int, int , int**);
 
-//fonction permettant de recomencer la simulation
-void restart(tabpoint&, tabpoint&, int&, time_t, ligne&, ligne&,time_t* ,int&, int, int, int , int**);
-
-//initialisation des paramètres réglables par l'utilisateur via le menu
 void Initpara(int&, int&, int&, int&, int&);
-
 #endif

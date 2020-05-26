@@ -21,17 +21,11 @@
 using namespace std;
 using namespace sf;
 
-/**************Ce fichier contient le coeur de la simulation: la dissection de la tumeur à travers les différentes zones**************/
-
-//simulation de la dissection
-
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t* chrono, int R, int condition80, int condition95, int nbzone)
+//Contient la partie de l'ancien main qui était dans la boucle principale
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono, int R, int condition80, int condition95, int nbzone, int tempsmax, string& etat,int& fin)
 {
-		//initialisation des variables
-		int H,m=0;
-		time_t temps_debut, temps_debut_zone; 
+		time_t temps_debut; int H,m=0;
 		time(&temps_debut); 
-		time(&temps_debut_zone);
 		Event event;
 		
 		window.clear();
@@ -44,62 +38,61 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		
 		
 
-	while(k<nbzone and gamemode==1)//tant que toutes les zones ne sont pas complétées et que la simulation est en cours
+	while(k<nbzone and gamemode==1)
 	{
 		
 		
 		if (window.pollEvent(event))
 		{
-			if (event.type == Event::Closed)//si l'on souhaite quitter le jeu
-				{window.close();
-				gamemode=10;}
+			if (event.type == Event::Closed)
+				{etat="Abandon";
+				fin=0;
+				gamemode=2;}
 			
 			
 			if (event.type == Event::KeyPressed)
 			{
 				if ((event.key.code == Keyboard::Q) || (event.key.code == Keyboard::N))
-					{window.close();
-					gamemode=10;}
+					{
+						etat="Abandon";
+						fin=0;
+						gamemode=2;
+					}
 				
-				if (event.key.code == Keyboard::B)//on active le bistouri éléctrique
+				if (event.key.code == Keyboard::B)
 				{	
 							
 
-					Position_Curseur(x, y, window);//on place le curseur la où il y a contact avec un pixel
+					Position_Curseur(x, y, window);
 					p1.set(x,y); 
-					if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)//si celui-ci est dans la bonne zone
+					if (zone(k, x, y, xcentre, ycentre, r, R, e)==1)
 						{
 						tab_point.append(p1);
 						points[k]++;
 						remplissage(k,x, y, xcentre,ycentre, r, R, e, aire, tab_pixel); 
 						}
-					if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)//si celui-ci n'est pas dans la bonne zone
+					if (zone(k, x, y, xcentre, ycentre, r, R, e)==2)
 						{
 						tab_erreur.append(p1);
 						erreurs[k]++;
 						}
-					if (aire_completee(aire, airetotale[k], condition80, condition95)==2)//si la zone en cours de dissection est totalement completée
+					if (aire_completee(aire, airetotale[k], condition80, condition95)==2)
 					{
-						//on passe a la zone suivante (avec le k indice de la zone)
+						
 						k+=1;
+						m=0;
+						//compt_erreur( points, erreurs,tab_point, tab_erreur);
+						l1.set(xcentre+r-(k+1)*e, ligneY);
+						l2.set(xcentre+r-(k+1)*e+e, ligneY);
 						//réinitialisation des tableaux
 						aire=0;
-						m=0;
+						ligneX= xcentre +r-(k+1)*e;
 						tab_point.reset();
 						tab_erreur.reset();
 						for (int i = 0; i < e; i++)
 						for(int j = 0; j < L; j++)
 								{tab_pixel[i][j]=0;}
-						//reinitialisation du chrono
-						chrono[k]=chronosimul(temps_debut_zone);
-						time(&temps_debut_zone);
 						
-						//déplacement des lignes délimitant la zone
-						ligneX= xcentre +r-(k+1)*e;
-						l1.set(xcentre+r-(k+1)*e, ligneY);
-						l2.set(xcentre+r-(k+1)*e+e, ligneY);
-						
-						//affichage et mise à jour de la simulation
 						window.clear();
 						window.draw(sprite);
 						Grand_cercle(window);
@@ -109,11 +102,9 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						window.display();
 						sleep(1);
 					}
-					
-					//si la zone est pratiquement completée, on affiche alors en vert les pixels restants afin qu'ils soient plus visibles
 					if (aire_completee(aire, airetotale[k], condition80, condition95)==1  && m==0)
 						{
-							//reperage des pixels restants
+							
 							for (int i=0;i<e;i++){
 								for (int y=0;y<l;y++)
 								{
@@ -123,47 +114,49 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 										H=(xcentre-(i+(xcentre+r-e*(k+1))))*(xcentre-(i+(xcentre+r-e*(k+1))))+(ycentre-y)*(ycentre-y);
 										if (i+(xcentre+r-e*(k+1)>=xcentre+r-(k+1)*e) && (i+(xcentre+r-e*(k+1))<=xcentre+r-k*e-R/2) && (H<=r*r-R/2))
 										{
-											//remplissage des pixels restants en une couleur différente
-											Dessine_restant(k,i,y, e, r, R, xcentre, window);
+												Dessine_restant(k,i,y, e, r, R, xcentre, window);
 										}	
 									}
 								}
 							}
 							m=1;
 						}
-					//on dessine les points corrects et les erreurs
 					Dessine_plus_points(tab_point, tab_erreur, window, R);
-					//actualisation de la fenetre
 					window.display();
 				}
-				
-				//on recommence la simulation
+
 				if(event.key.code == Keyboard::Comma)
 				{
-					restart(tab_point, tab_erreur,k,temps_debut,l1, l2, chrono,aire,e,ligneX,ligneY,tab_pixel);
+					restart(tab_point, tab_erreur,k,temps_debut,l1, l2,aire,e,ligneX,ligneY,tab_pixel);
 				}
-					
+				
 			}
-		
 		}
-	
+		
+		if (chronosimul(temps_debut)>=tempsmax)
+			{
+				etat="Time_out";
+				fin=0;
+				gamemode=10;
+			}
+		/*test_fin(aire_completee(aire,airetotale[nbzone],condition95,condition80),temps_debut);*/
 	}
-	//si on a completé toutes les zones, on arrete le chrono et on passe au mode suivant
-	if (k>=nbzone) {  chrono[0]=chronosimul(temps_debut); gamemode=2;}	
+	
+	if (k>=nbzone) {  chrono=chronosimul(temps_debut); gamemode=2;}	
 }
 
 
 /******************************************************************************/
 
-//Initialisation des variables necessaires pour la simulation
+//Contient la partie de l'ancien main avant la boucle principale
 
-void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2,time_t* chrono, int nbzone, int& R)
+void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, Texture& texture,Sprite& sprite, ligne& l1, ligne& l2, int nbzone, int& R)
 
 {
-	k=0;//indice de la zone dans laquelle on se trouve
+	k=0;
 	Dessin = false;
 	
-	e=2*int(r/nbzone);//epaisseur des zones
+	e=2*int(r/nbzone);
 	ligneX= xcentre +r-(k+1)*e;
 	ligneY=20;
 	
@@ -172,10 +165,9 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 	
 	for (int i = 0; i < nbzone; i++)
 	{
-	airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R); //aire totale de chaque zone
-	points[i]=0; //nombre de points corrects
-	erreurs[i]=0;	//nombre d'erreurs
-	chrono[i]=0;
+	airetotale[i] = calculaire(i,e,l,xcentre, ycentre, r, R);
+	points[i]=0;
+	erreurs[i]=0;	
 	}
 	
 	
@@ -193,12 +185,10 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 
 /*********************************************************************************/
 
-//fonction permettant de recomencer la simulation
-
-void restart(tabpoint& t1, tabpoint& t2, int& k, time_t temps_debut, ligne& l1, ligne& l2, time_t* temps_simul, int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
+void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
-	time(&temps_debut);
+	time(&chrono);
 	t1.reset();
 	t2.reset();
 	aire=0;
@@ -206,14 +196,11 @@ void restart(tabpoint& t1, tabpoint& t2, int& k, time_t temps_debut, ligne& l1, 
 	l2.set(xcentre+r-(k+1)*e+e, ligneY);
 	for (int i = 0; i < e; i++)
 		{ for(int j = 0; j < L; j++)
-			{tab_pixel[i][j]=0;
-			temps_simul[i]=0;}
+			{tab_pixel[i][j]=0;}
 		}
 }
 
 /************************************************************************************/
-
-//initialisation des paramètres réglables par l'utilisateur via le menu
 
 void Initpara(int& nbzone, int& R, int& Condition80, int& Condition95, int& temps)
 {
@@ -221,10 +208,6 @@ void Initpara(int& nbzone, int& R, int& Condition80, int& Condition95, int& temp
 	
 	if(Param)
 	{
-	//nbzone: nombre de zone 
-	//R:taille du coté du curseur(carré)
-	//Coondition95: condition à partir de laquelle on affiche les pixels restants isolés 
-	//Condition95: pourcentage d'aire completée pour passer à la zone suivante 
 	Param >> nbzone >> R >> Condition80 >> Condition95 >> temps;
 	}
 	
@@ -233,3 +216,30 @@ void Initpara(int& nbzone, int& R, int& Condition80, int& Condition95, int& temp
 		cout << "Erreur, impossible d'ouvrir le fichier" << endl;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

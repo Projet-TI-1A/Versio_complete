@@ -8,9 +8,8 @@ using namespace sf;
 using namespace std;
 
 
-void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ind)
+void menu(RenderWindow& window, string& Prenom, string& Prenom2, string& Nom, string& Age, string& Formation, string& Niveau, string& Endoscope, int& gamemode, int& ind, int& ecran)
 {
-	int ecran=1;
 	
 	Font font;
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
@@ -141,25 +140,24 @@ void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran, string& Pr
 	
 	text3.setFont(font);
 	text3.setString(s);
+	text3.setPosition(40,20);
 	text3.setFillColor(Color::White);
 	text3.setCharacterSize(24);
 	
 	text.setString(L"Débuter la simulation");
 	text.setFillColor(Color::Black);
-	text.setPosition(120,85);
+	text.setPosition(280,150);
 	
 	text2.setString(L"Réglage");
-	text2.setPosition(195, 210);
+	text2.setPosition(355, 300);
 	text2.setFillColor(Color::Black);
 	
-	text3.setPosition(610,335);
-	
 	RectangleShape rectangle1(Vector2f(300, 50));
-	rectangle1.setPosition(90,75);
+	rectangle1.setPosition(250,140);
 	rectangle1.setFillColor(Color::White);
 	
 	RectangleShape rectangle2(Vector2f(300, 50));
-	rectangle2.setPosition(90,200);
+	rectangle2.setPosition(250,290);
 	rectangle2.setFillColor(Color::White);
 	
 	while (ecran==0)
@@ -172,20 +170,15 @@ void menu0(RenderWindow& window, Text& text, Text& text2, int& ecran, string& Pr
 				{
 					int x, y;
 					Position_Curseur(x, y, window);
-					if (x>90 and x<(90+300))
+					if (Button(window,250,140,300, 50))
 					{
-						if (y>75 and y<(75+50))
-						{
-							ecran = 8;
-						}
-						
-						if (y>200 and y<(200+50))
-						{
-							ecran = 15;
-						}
+						ecran=9;
 					}
-				
-				
+					
+					if (Button(window,250,290,300,50))
+					{
+						ecran=15;
+					}
 				}
 			}
 			
@@ -1322,7 +1315,7 @@ void Enregistrer(string& Nb, string& r, string& c80, string& c95, string& temps)
 	
 	if (Res)
 	{
-	Res << Nb << " " << r << " " << c80 << " " << c95 << temps << endl;
+	Res << Nb << " " << r << " " << c80 << " " << c95 << " " << temps << endl;
 	}
 }
 
