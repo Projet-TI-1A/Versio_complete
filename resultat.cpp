@@ -23,7 +23,7 @@ void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& wind
 	//calcul le pourcentage d'incisions a l'interieur de la zone
 	int erreurstot=0,pointstot=0;
 		
-	for(int i=1;i<nbzones;i++)
+	for(int i=0;i<nbzones;i++)
 		{
 		n[i+1]=100*float((points[i]-erreurs[i])/float(points[i]+erreurs[i]));
 		erreurstot+=erreurs[i];
@@ -36,15 +36,13 @@ void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& wind
 	char nb[4], tps[4];
 	sprintf(tps, "%ld", temps[0]); 
  	
- 	//chargement de la police
- 	Font font;
+ 	Font font;//chargement de la police
 	if (!font.loadFromFile("Arimo-Regular.ttf"))
 		{cout<<"erreur chargement police"<<endl;}
 	
-	Text text;
-	Text text2;
+	Text text,text2;
 	
-	//affichage du pourcentage d'erreur totale
+//affichage du pourcentage d'erreur totale
 	text.setFont(font);
 	text.setString("Pourcentage d'incisions a l'interieur de la zone : ");
 	text.setCharacterSize(16);
@@ -61,7 +59,7 @@ void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& wind
 	window.draw(text);
 	
 	//affichage du pourcentage d'erreur zone par zone
-	for(int i=1;i<nbzones;i++)
+/*	for(int i=1;i<nbzones;i++)
 	{
 	text.setFont(font);
 	text.setString("Pourcentage d'incisions a l'interieur de la zone ");
@@ -78,7 +76,7 @@ void affichage_erreur(int nbzones, int* points, int* erreurs, RenderWindow& wind
 	sprintf(nb, "%d", n[i]);
 	text.setString(nb);
 	text.setPosition(390,i*20);
-	window.draw(text);}
+	window.draw(text);}  */
 	
 	//affichage du temps de simulation
 	text2.setFont(font);
@@ -118,12 +116,12 @@ void Envoi(String Nom, String Age, String Formation, String Niveau, time_t& chro
 
 
 
- 
+
 
 int chronosimul(time_t temps_debut)
 {
 //temps en secondes
-time_t temps_fin;
+time_t temps_fin; 
 time_t temps_operation;  
 
 time(&temps_fin); 
