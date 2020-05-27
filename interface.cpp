@@ -11,13 +11,13 @@ using namespace sf;
 
 
 //tracer un cercle (symbolisant la tumeur)
-void Grand_cercle(RenderWindow& window)/*Permet de trace le cercle représentant la tumeur*/
+void Grand_cercle(RenderWindow& window, int xcentre, ycentre, r)/*Permet de trace le cercle représentant la tumeur*/
 {
 	CircleShape shape(150);
 	shape.setFillColor(Color(255,214,246,150));
 	shape.setOutlineThickness(20); //contour pour creer une marge d'erreur
 	shape.setOutlineColor(sf::Color(253,108,158));
-	shape.setPosition(100,20);
+	shape.setPosition(xcentre-r,ycentre+r);
 	window.draw(shape);
 
 }
