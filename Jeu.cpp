@@ -144,7 +144,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 			{
 				etat="Time_out";
 				fin=0;
-				gamemode=10;
+				gamemode=2;
 			}
 		/*test_fin(aire_completee(aire,airetotale[nbzone],condition95,condition80),temps_debut);*/
 	}
