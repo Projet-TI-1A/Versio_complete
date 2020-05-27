@@ -22,10 +22,12 @@ using namespace std;
 using namespace sf;
 
 //Contient la partie de l'ancien main qui était dans la boucle principale
-void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t& chrono, int R, int condition80, int condition95, int nbzone, int tempsmax, string& etat,int& fin)
+void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& e,int& ligneX,int& ligneY,int* airetotale,int& aire,int * points, int* erreurs, tabpoint& tab_point,tabpoint& tab_erreur,int** tab_pixel,Texture& texture,Sprite& sprite,point& p1, ligne& l1, ligne& l2, int& gamemode, time_t* chrono, int R, int condition80, int condition95, int nbzone)
 {
-		time_t temps_debut; int H,m=0;
+		int H,m=0;
+		time_t temps_debut, temps_debut_zone; 
 		time(&temps_debut); 
+		time(&temps_debut_zone);
 		Event event;
 		
 		window.clear();
@@ -45,19 +47,15 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		if (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
-				{etat="Abandon";
-				fin=0;
-				gamemode=2;}
+				{window.close();
+				gamemode=10;}
 			
 			
 			if (event.type == Event::KeyPressed)
 			{
 				if ((event.key.code == Keyboard::Q) || (event.key.code == Keyboard::N))
-					{
-						etat="Abandon";
-						fin=0;
-						gamemode=2;
-					}
+					{window.close();
+					gamemode=10;}
 				
 				if (event.key.code == Keyboard::B)
 				{	
@@ -92,6 +90,10 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						for (int i = 0; i < e; i++)
 						for(int j = 0; j < L; j++)
 								{tab_pixel[i][j]=0;}
+							
+						//reinitialisation du chrono
+						chrono[k]=chronosimul(temps_debut_zone);
+						time(&temps_debut_zone);
 						
 						window.clear();
 						window.draw(sprite);
@@ -129,20 +131,20 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 				{
 					restart(tab_point, tab_erreur,k,temps_debut,l1, l2,aire,e,ligneX,ligneY,tab_pixel);
 				}
+					
+
+				
+
+					
 				
 			}
+		
 		}
 		
-		if (chronosimul(temps_debut)>=tempsmax)
-			{
-				etat="Time_out";
-				fin=0;
-				gamemode=10;
-			}
 		/*test_fin(aire_completee(aire,airetotale[nbzone],condition95,condition80),temps_debut);*/
 	}
 	
-	if (k>=nbzone) {  chrono=chronosimul(temps_debut); gamemode=2;}	
+	if (k>=nbzone) {  chrono[0]=chronosimul(temps_debut); gamemode=2;}	
 }
 
 
@@ -185,7 +187,7 @@ void init_jeu(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int& 
 
 /*********************************************************************************/
 
-void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
+void restart(tabpoint& t1, tabpoint& t2, int& k, time_t& chrono, ligne& l1, ligne& l2,int& aire, int e, int ligneX, int ligneY, int** tab_pixel)
 {
 	k=0;
 	time(&chrono);
@@ -202,13 +204,13 @@ void restart(tabpoint& t1, tabpoint& t2, int& k, time_t chrono, ligne& l1, ligne
 
 /************************************************************************************/
 
-void Initpara(int& nbzone, int& R, int& Condition80, int& Condition95, int& temps)
+void Initpara(int& nbzone, int& R, int& Condition80, int& Condition95)
 {
 	ifstream Param("PARAMETRE.txt");
 	
 	if(Param)
 	{
-	Param >> nbzone >> R >> Condition80 >> Condition95 >> temps;
+	Param >> nbzone >> R >> Condition80 >> Condition95;
 	}
 	
 	else
