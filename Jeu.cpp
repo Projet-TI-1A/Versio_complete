@@ -33,7 +33,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 		
 		window.clear();
 		window.draw(sprite);
-		Grand_cercle(window);
+		Grand_cercle(window, xcentre, ycentre, r);
 		l1.Position_ligne(window);
 		l2.Position_ligne(window);
 		
@@ -102,7 +102,7 @@ void simulation(RenderWindow& window,int& x,int& y,int& E,int& k,int& Dessin,int
 						
 						window.clear();
 						window.draw(sprite);
-						Grand_cercle(window);
+						Grand_cercle(window, xcentre, ycentre, r);
 						l1.Position_ligne(window);
 						l2.Position_ligne(window);
 						ZoneFinie(window, k, e, xcentre, ycentre, r);
